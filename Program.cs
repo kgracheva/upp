@@ -1,5 +1,7 @@
 using System.Text;
+using Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true
         };
     });
+    
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ));
+
+// builder.Services
+//             .AddRoles<Role>()
+//             .AddRoleManager<RoleManager<ApplicationRole>>()
+//             .AddUserManager<UserManager<ApplicationUser>>()
+//             .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 var app = builder.Build();
 
@@ -54,6 +66,8 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

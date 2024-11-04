@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 
 
-namespace Infrastructure.Services
+namespace Services
 {
     internal class AuthService 
     {
