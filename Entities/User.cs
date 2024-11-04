@@ -6,6 +6,7 @@ namespace Entities
     {
         // public virtual ICollection<ApplicationUserRole> Roles { get; set; }
         public AdditionalInfo? Info { get; set; }
+        public ICollection<UserRole> Roles { get; set; }
     }
 
 }
