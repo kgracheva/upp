@@ -7,8 +7,7 @@ namespace Entities
         public User? User { get; set; }
 		//public string? Fio {  get; set; }
         public string Name { get; set; } = "";
-        public string Surname { get; set; } = "";
-        public string? Patronymic { get; set; }
+        public string Lastname { get; set; } = "";
     }
 
 }

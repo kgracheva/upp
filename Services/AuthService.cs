@@ -2,19 +2,22 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+using Entities;
+using upp.Dtos;
 
 
 namespace Services
 {
     internal class AuthService 
     {
-        // private readonly IApplicationDbContext _context;
-        // private readonly UserManager<ApplicationUser> _userManager;
-        // public AuthService(IApplicationDbContext context, UserManager<ApplicationUser> userManager)
-        // {
-        //     _context = context;
-        //     _userManager = userManager;
-        // }
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
+
+        public AuthService(ApplicationDbContext context, UserManager<User> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
 
         // public async Task<string> Login(UserLoginDto dto)
         // {
@@ -81,7 +84,7 @@ namespace Services
         // public async Task<string> Impersonate(ImpersonateRequestDto dto)
         // {
         //     var user = await _userManager.FindByNameAsync(dto.UserName);
-            
+
         //     if(user == null)
         //     {
         //         throw new Exception("User is null");
@@ -112,32 +115,51 @@ namespace Services
         //     return authClaims;
         // }
 
-        // private async Task<int> CreateUser(AddUserDto dto, string role)
-        // {
-        //     var user = new ApplicationUser() { UserName = dto.UserName };
+        public async Task<int> CreatePsychologist(AddUserDto dto)
+        {
+            var psy = await _userManager.FindByNameAsync(dto.Email);
 
-        //     var result = await _userManager.CreateAsync(user, dto.Password); //create user
+            if (psy != null)
+            {
+                throw new Exception("User already exists!");
+            }
 
-        //     if(result.Succeeded)
-        //     {
-        //         await _userManager.AddToRoleAsync(user, role); //add role
+            try
+            {
+                return await CreateUser(dto, Roles.Operator);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-        //         if(dto.Fio != null)
-        //         {
-        //             var additionalInfo = new AdditionalInfo() { Id = user.Id, Fio = dto.Fio }; //add fio
+        private async Task<int> CreateUser(AddUserDto dto, string role)
+        {
+            var user = new User() { Email = dto.Email };
 
-        //             _context.AdditionalInfo.Add(additionalInfo);
+            var result = await _userManager.CreateAsync(user, dto.Password); //create user
 
-        //             await _context.SaveChangesAsync();
-        //         }
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, role); //add role
 
-        //         return user.Id;
-        //     }
-        //     else
-        //     {
-        //         throw new Exception("User creating error");
-        //     }
-        // }
+                if (dto.Name != null)
+                {
+                    var additionalInfo = new AdditionalInfo() { Id = user.Id, Name = dto.Name, Lastname = dto.Lastname }; //add fio
+
+                    _context.AdditionalInfo.Add(additionalInfo);
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return user.Id;
+            }
+            else
+            {
+                throw new Exception("User creating error");
+            }
+        }
 
 
         private string GetJwtToken(List<Claim> claims)
@@ -154,6 +176,12 @@ namespace Services
 
             return encodedJwt;
         }
+
+    }
+
+
+    public enum Roles
+    {
 
     }
 }

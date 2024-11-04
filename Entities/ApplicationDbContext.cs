@@ -9,7 +9,7 @@ namespace Entities
     public class ApplicationDbContext : IdentityDbContext<User, Role, int, ApplicationUserClaim, UserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>
     {
 
-
+        public DbSet<AdditionalInfo> AdditionalInfo { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
