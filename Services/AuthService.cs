@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Entities;
-using upp.Dtos;
+using upp.Dtos.User;
 
 
 namespace Services

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using upp.Dtos;
+using upp.Dtos.User;
 
 namespace upp.Controllers
 {

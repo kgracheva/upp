@@ -1,4 +1,4 @@
-﻿namespace upp.Dtos
+﻿namespace upp.Dtos.User
 {
     public class AddUserDto
     {

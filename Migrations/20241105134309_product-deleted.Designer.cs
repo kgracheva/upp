@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace upp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241105113902_add-info-fields")]
-    partial class addinfofields
+    [Migration("20241105134309_product-deleted")]
+    partial class productdeleted
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,6 +248,49 @@ namespace upp.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("upp.Entities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CaloriesCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CarbsCount")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FatsCount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProteinsCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Entities.AdditionalInfo", b =>
                 {
                     b.HasOne("Entities.User", "User")
@@ -314,9 +357,22 @@ namespace upp.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("upp.Entities.Product", b =>
+                {
+                    b.HasOne("Entities.User", "Creator")
+                        .WithMany("Products")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
             modelBuilder.Entity("Entities.User", b =>
                 {
                     b.Navigation("Info");
+
+                    b.Navigation("Products");
 
                     b.Navigation("Roles");
                 });

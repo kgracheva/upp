@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using upp.Entities;
 
 namespace Entities
 {
@@ -10,6 +11,7 @@ namespace Entities
     {
 
         public DbSet<AdditionalInfo> AdditionalInfo { get; set; }
+        public DbSet<Product> Products { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -19,6 +21,11 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Product>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.Products)
+                .HasForeignKey(x => x.CreatorId);
 
             builder.Entity<AdditionalInfo>()
                 .HasOne(x => x.User)
