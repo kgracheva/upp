@@ -63,6 +63,7 @@ builder.Services.AddIdentity<User, Role>()
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CalendarService>();
+builder.Services.AddScoped<ArticleService>();
 
 var app = builder.Build();
 

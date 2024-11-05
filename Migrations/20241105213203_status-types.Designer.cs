@@ -3,6 +3,7 @@ using System;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace upp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105213203_status-types")]
+    partial class statustypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdditionalInfo", (string)null);
+                    b.ToTable("AdditionalInfo");
                 });
 
             modelBuilder.Entity("Entities.ApplicationRoleClaim", b =>
@@ -275,7 +278,7 @@ namespace upp.Migrations
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("upp.Entities.ArticleBlock", b =>
@@ -290,7 +293,7 @@ namespace upp.Migrations
 
                     b.HasIndex("BlockId");
 
-                    b.ToTable("ArticleBlocks", (string)null);
+                    b.ToTable("ArticleBlocks");
                 });
 
             modelBuilder.Entity("upp.Entities.Block", b =>
@@ -321,7 +324,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blocks", (string)null);
+                    b.ToTable("Blocks");
                 });
 
             modelBuilder.Entity("upp.Entities.Calendar", b =>
@@ -358,7 +361,7 @@ namespace upp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Calendars", (string)null);
+                    b.ToTable("Calendars");
                 });
 
             modelBuilder.Entity("upp.Entities.MealType", b =>
@@ -381,7 +384,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealTypes", (string)null);
+                    b.ToTable("MealTypes");
                 });
 
             modelBuilder.Entity("upp.Entities.Product", b =>
@@ -424,7 +427,7 @@ namespace upp.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("upp.Entities.StatusType", b =>
@@ -447,7 +450,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusTypes", (string)null);
+                    b.ToTable("StatusTypes");
                 });
 
             modelBuilder.Entity("upp.Entities.Training", b =>
@@ -488,7 +491,7 @@ namespace upp.Migrations
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("Training", (string)null);
+                    b.ToTable("Training");
                 });
 
             modelBuilder.Entity("upp.Entities.TrainingBlock", b =>
@@ -503,7 +506,7 @@ namespace upp.Migrations
 
                     b.HasIndex("BlockId");
 
-                    b.ToTable("TrainingBlocks", (string)null);
+                    b.ToTable("TrainingBlocks");
                 });
 
             modelBuilder.Entity("Entities.AdditionalInfo", b =>

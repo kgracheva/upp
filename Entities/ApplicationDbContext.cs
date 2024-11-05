@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using upp.Entities;
+using System.Reflection.Emit;
 
 namespace Entities
 {
@@ -14,6 +15,12 @@ namespace Entities
         public DbSet<Product> Products { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<MealType> MealTypes { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<StatusType> StatusTypes { get; set; }
+        public DbSet<ArticleBlock> ArticleBlocks { get; set; }
+        public DbSet<TrainingBlock> TrainingBlocks { get; set; }
+        public DbSet<Block> Blocks { get; set; }
+        public DbSet<Training> Training { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -23,6 +30,50 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<TrainingBlock>()
+              .HasKey(x => new { x.TrainingId, x.BlockId });
+            builder.Entity<TrainingBlock>()
+                .HasOne(x => x.Training)
+                .WithMany()
+                .HasForeignKey(x => x.TrainingId);
+
+            builder.Entity<TrainingBlock>()
+                .HasOne(x => x.Block)
+                .WithMany()
+                .HasForeignKey(x => x.BlockId);
+
+            builder.Entity<Training>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.Trainings)
+                .HasForeignKey(x => x.CreatorId);
+
+            builder.Entity<Training>()
+                .HasOne(x => x.StatusType)
+                .WithMany()
+                .HasForeignKey(x => x.StatusTypeId);
+
+            builder.Entity<ArticleBlock>()
+                .HasKey(x => new { x.ArticleId, x.BlockId });
+            builder.Entity<ArticleBlock>()
+                .HasOne(x => x.Article)
+                .WithMany(x => x.ArticleBlocks)
+                .HasForeignKey(x => x.ArticleId);
+
+            builder.Entity<ArticleBlock>()
+                .HasOne(x => x.Block)
+                .WithMany()
+                .HasForeignKey(x => x.BlockId);
+
+            builder.Entity<Article>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.Articles)
+                .HasForeignKey(x => x.CreatorId);
+
+            builder.Entity<Article>()
+                .HasOne(x => x.StatusType)
+                .WithMany()
+                .HasForeignKey(x => x.StatusTypeId);
 
             builder.Entity<Calendar>()
                 .HasOne(x => x.User)

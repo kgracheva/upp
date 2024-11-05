@@ -3,6 +3,7 @@ using System;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace upp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105205709_article-blocks")]
+    partial class articleblocks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdditionalInfo", (string)null);
+                    b.ToTable("AdditionalInfo");
                 });
 
             modelBuilder.Entity("Entities.ApplicationRoleClaim", b =>
@@ -275,7 +278,7 @@ namespace upp.Migrations
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("upp.Entities.ArticleBlock", b =>
@@ -290,7 +293,7 @@ namespace upp.Migrations
 
                     b.HasIndex("BlockId");
 
-                    b.ToTable("ArticleBlocks", (string)null);
+                    b.ToTable("ArticleBlock");
                 });
 
             modelBuilder.Entity("upp.Entities.Block", b =>
@@ -321,7 +324,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blocks", (string)null);
+                    b.ToTable("Block");
                 });
 
             modelBuilder.Entity("upp.Entities.Calendar", b =>
@@ -358,7 +361,7 @@ namespace upp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Calendars", (string)null);
+                    b.ToTable("Calendars");
                 });
 
             modelBuilder.Entity("upp.Entities.MealType", b =>
@@ -381,7 +384,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MealTypes", (string)null);
+                    b.ToTable("MealTypes");
                 });
 
             modelBuilder.Entity("upp.Entities.Product", b =>
@@ -424,7 +427,7 @@ namespace upp.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("upp.Entities.StatusType", b =>
@@ -447,63 +450,7 @@ namespace upp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusTypes", (string)null);
-                });
-
-            modelBuilder.Entity("upp.Entities.Training", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("StatusTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("VideoRef")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("StatusTypeId");
-
-                    b.ToTable("Training", (string)null);
-                });
-
-            modelBuilder.Entity("upp.Entities.TrainingBlock", b =>
-                {
-                    b.Property<int>("TrainingId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BlockId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("TrainingId", "BlockId");
-
-                    b.HasIndex("BlockId");
-
-                    b.ToTable("TrainingBlocks", (string)null);
+                    b.ToTable("StatusType");
                 });
 
             modelBuilder.Entity("Entities.AdditionalInfo", b =>
@@ -648,44 +595,6 @@ namespace upp.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("upp.Entities.Training", b =>
-                {
-                    b.HasOne("Entities.User", "Creator")
-                        .WithMany("Trainings")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("upp.Entities.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-
-                    b.Navigation("StatusType");
-                });
-
-            modelBuilder.Entity("upp.Entities.TrainingBlock", b =>
-                {
-                    b.HasOne("upp.Entities.Block", "Block")
-                        .WithMany()
-                        .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("upp.Entities.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Block");
-
-                    b.Navigation("Training");
-                });
-
             modelBuilder.Entity("Entities.User", b =>
                 {
                     b.Navigation("Articles");
@@ -697,8 +606,6 @@ namespace upp.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("Roles");
-
-                    b.Navigation("Trainings");
                 });
 #pragma warning restore 612, 618
         }
