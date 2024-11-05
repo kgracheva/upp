@@ -1,0 +1,12 @@
+
+INSERT INTO public."AspNetRoles"
+("Id", "Name", "NormalizedName", "ConcurrencyStamp")
+VALUES(1, 'Admin', 'ADMIN', '');
+
+INSERT INTO public."AspNetRoles"
+("Id", "Name", "NormalizedName", "ConcurrencyStamp")
+VALUES(2, 'Psychologist', 'PSYCHOLOGIST', '');
+
+INSERT INTO public."AspNetRoles"
+("Id", "Name", "NormalizedName", "ConcurrencyStamp")
+VALUES(3, 'Client', 'CLIENT', '');

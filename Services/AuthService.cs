@@ -8,7 +8,7 @@ using upp.Dtos;
 
 namespace Services
 {
-    internal class AuthService 
+    public class AuthService 
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
@@ -19,28 +19,28 @@ namespace Services
             _userManager = userManager;
         }
 
-        // public async Task<string> Login(UserLoginDto dto)
-        // {
-        //     var user = await _userManager.FindByNameAsync(dto.UserName);
+        public async Task<string> Login(UserLoginDto dto, CancellationToken token)
+        {
+            var user = await _userManager.FindByEmailAsync(dto.Email);
 
-        //     if (user == null)
-        //     {
-        //         throw new Exception("User is null");
-        //     }
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
 
-        //     if(await _userManager.CheckPasswordAsync(user,  dto.Password))
-        //     {
-        //         var authClaims = await GenerateAuthClaims(user);
+            if (await _userManager.CheckPasswordAsync(user, dto.Password))
+            {
+                var authClaims = await GenerateAuthClaims(user);
 
-        //         var jwtToken = GetJwtToken(authClaims);
+                var jwtToken = GetJwtToken(authClaims);
 
-        //         return jwtToken;
-        //     }
-        //     else
-        //     {
-        //         throw new Exception("Password invalid");
-        //     }
-        // }
+                return jwtToken;
+            }
+            else
+            {
+                throw new Exception("Password invalid");
+            }
+        }
 
 
         // public async Task<int> CreateModerator(AddUserDto dto)
@@ -97,23 +97,23 @@ namespace Services
         //     return jwtToken;
         // }
 
-        // private async Task<List<Claim>> GenerateAuthClaims(ApplicationUser user)
-        // {
-        //     var userRoles = await _userManager.GetRolesAsync(user);
+        private async Task<List<Claim>> GenerateAuthClaims(User user)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-        //     var authClaims = new List<Claim>
-        //         {
-        //             new Claim(ClaimTypes.Name, user.UserName),
-        //             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        //         };
+            var authClaims = new List<Claim>
+                 {
+                     new Claim(ClaimTypes.Name, user.UserName),
+                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                 };
 
-        //     foreach (var role in userRoles)
-        //     {
-        //         authClaims.Add(new Claim(ClaimTypes.Role, role));
-        //     }
+            foreach (var role in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
-        //     return authClaims;
-        // }
+            return authClaims;
+        }
 
         public async Task<int> CreatePsychologist(AddUserDto dto)
         {
@@ -153,9 +153,9 @@ namespace Services
             }
         }
 
-        private async Task<int> CreateUser(AddUserDto dto, string role)
+        public async Task<int> CreateUser(AddUserDto dto, string role)
         {
-            var user = new User() { Email = dto.Email };
+            var user = new User() { Email = dto.Email, UserName = dto.Email };
 
             var result = await _userManager.CreateAsync(user, dto.Password); //create user
 
