@@ -126,7 +126,26 @@ namespace Services
 
             try
             {
-                return await CreateUser(dto, Roles.Operator);
+                return await CreateUser(dto, Roles.Psychologist);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int> CreateClient(AddUserDto dto)
+        {
+            var client = await _userManager.FindByNameAsync(dto.Email);
+
+            if (client != null)
+            {
+                throw new Exception("User already exists!");
+            }
+
+            try
+            {
+                return await CreateUser(dto, Roles.Client);
             }
             catch (Exception ex)
             {
@@ -180,8 +199,15 @@ namespace Services
     }
 
 
-    public enum Roles
+    public static class Roles
     {
-
+        public const string Admin = "Admin";
+        public const string Psychologist = "Psychologist";
+        public const string Client = "Client";
+        public static readonly string[] AvailableRoles = {
+                Admin,
+                Psychologist,
+                Client
+            };
     }
 }
