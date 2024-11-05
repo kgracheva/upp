@@ -9,6 +9,7 @@ namespace Entities
         public AdditionalInfo? Info { get; set; }
         public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
         public ICollection<Product> Products { get; set; } = new List<Product>();
+        public ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
     }
 
 }

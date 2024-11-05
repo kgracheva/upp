@@ -1,0 +1,8 @@
+{
+  "name": "Макароны",
+  "proteinsCount": 11,
+  "fatsCount": 5,
+  "carbsCount": 2,
+  "caloriesCount": 50,
+  "creatorId": 1
+}

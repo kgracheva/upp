@@ -10,3 +10,20 @@ VALUES(2, 'Psychologist', 'PSYCHOLOGIST', '');
 INSERT INTO public."AspNetRoles"
 ("Id", "Name", "NormalizedName", "ConcurrencyStamp")
 VALUES(3, 'Client', 'CLIENT', '');
+
+
+INSERT INTO public."MealTypes"
+("Id", "Name", "Created", "LastModified")
+VALUES(1, 'Завтрак', '2024-11-05 18:38:58.397', '2024-11-05 18:38:58.397');
+
+INSERT INTO public."MealTypes"
+("Id", "Name", "Created", "LastModified")
+VALUES(2, 'Обед', '2024-11-05 18:38:58.397', '2024-11-05 18:38:58.397');
+
+INSERT INTO public."MealTypes"
+("Id", "Name", "Created", "LastModified")
+VALUES(3, 'Ужин', '2024-11-05 18:38:58.397', '2024-11-05 18:38:58.397');
+
+INSERT INTO public."MealTypes"
+("Id", "Name", "Created", "LastModified")
+VALUES(4, 'Перекус', '2024-11-05 18:38:58.397', '2024-11-05 18:38:58.397');

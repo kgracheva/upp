@@ -12,6 +12,8 @@ namespace Entities
 
         public DbSet<AdditionalInfo> AdditionalInfo { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<MealType> MealTypes { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -21,6 +23,21 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Calendar>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Calendars)
+                .HasForeignKey(x => x.UserId);
+
+            builder.Entity<Calendar>()
+                .HasOne(x => x.Product)
+                .WithMany()
+                .HasForeignKey(x => x.ProductId);
+
+            builder.Entity<Calendar>()
+                .HasOne(x => x.MealType)
+                .WithMany()
+                .HasForeignKey(x => x.MealTypeId);
 
             builder.Entity<Product>()
                 .HasOne(x => x.Creator)
