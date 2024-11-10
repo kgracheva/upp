@@ -13,6 +13,7 @@ namespace Entities
         public ICollection<Article> Articles { get; set; } = new List<Article>();
         public ICollection<Training> Trainings { get; set; } = new List<Training>();
         public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
+        public ICollection<Request> Requests { get; set; } = new List<Request>();
     }
 
 }

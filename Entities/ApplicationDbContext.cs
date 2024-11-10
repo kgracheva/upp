@@ -23,6 +23,7 @@ namespace Entities
         public DbSet<Block> Blocks { get; set; }
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Request> Requests { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -32,6 +33,18 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Request>()
+                .HasOne(x => x.StatusType)
+                .WithMany()
+                .HasForeignKey(x => x.StatusTypeId);
+
+            builder.Entity<Request>()
+                .HasOne(x => x.Operator)
+                .WithMany(x => x.Requests)
+                .HasForeignKey(x => x.OperatorId);
+
+
             builder.Entity<RecipeBlock>()
                 .HasKey(x => new { x.RecipeId, x.BlockId });
             builder.Entity<RecipeBlock>()
