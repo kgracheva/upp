@@ -3,6 +3,7 @@ using System;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace upp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241109113103_trainings2")]
+    partial class trainings2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,69 +433,6 @@ namespace upp.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("upp.Entities.Recipe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CaloriesCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CarbsCount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FatsCount")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ProteinsCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StatusTypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("StatusTypeId");
-
-                    b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("upp.Entities.RecipeBlock", b =>
-                {
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BlockId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RecipeId", "BlockId");
-
-                    b.HasIndex("BlockId");
-
-                    b.ToTable("RecipeBlocks");
-                });
-
             modelBuilder.Entity("upp.Entities.StatusType", b =>
                 {
                     b.Property<int>("Id")
@@ -717,44 +657,6 @@ namespace upp.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("upp.Entities.Recipe", b =>
-                {
-                    b.HasOne("Entities.User", "Creator")
-                        .WithMany("Recipes")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("upp.Entities.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-
-                    b.Navigation("StatusType");
-                });
-
-            modelBuilder.Entity("upp.Entities.RecipeBlock", b =>
-                {
-                    b.HasOne("upp.Entities.Block", "Block")
-                        .WithMany()
-                        .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("upp.Entities.Recipe", "Recipe")
-                        .WithMany("RecipeBlocks")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Block");
-
-                    b.Navigation("Recipe");
-                });
-
             modelBuilder.Entity("upp.Entities.Training", b =>
                 {
                     b.HasOne("Entities.User", "Creator")
@@ -783,7 +685,7 @@ namespace upp.Migrations
                         .IsRequired();
 
                     b.HasOne("upp.Entities.Training", "Training")
-                        .WithMany("TrainingBlocks")
+                        .WithMany()
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -803,8 +705,6 @@ namespace upp.Migrations
 
                     b.Navigation("Products");
 
-                    b.Navigation("Recipes");
-
                     b.Navigation("Roles");
 
                     b.Navigation("Trainings");
@@ -813,16 +713,6 @@ namespace upp.Migrations
             modelBuilder.Entity("upp.Entities.Article", b =>
                 {
                     b.Navigation("ArticleBlocks");
-                });
-
-            modelBuilder.Entity("upp.Entities.Recipe", b =>
-                {
-                    b.Navigation("RecipeBlocks");
-                });
-
-            modelBuilder.Entity("upp.Entities.Training", b =>
-                {
-                    b.Navigation("TrainingBlocks");
                 });
 #pragma warning restore 612, 618
         }

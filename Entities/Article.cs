@@ -12,6 +12,7 @@ namespace upp.Entities
         public User? Creator { get; set; }
         public int StatusTypeId { get; set; }
         public StatusType? StatusType { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public ICollection<ArticleBlock>? ArticleBlocks { get; set; } = new List<ArticleBlock>();
     }
 }

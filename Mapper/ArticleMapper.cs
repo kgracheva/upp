@@ -9,8 +9,10 @@ namespace upp.Mapper
     {
         public ArticleMapper()
         {
-            CreateMap<Article, ArticleDto>();
-            //.ForMember(dest => dest.Blocks, opt => opt.MapFrom(x => x));
+            CreateMap<Article, ArticleDto>()
+                .ForMember(dest => dest.Blocks, opt => opt.MapFrom(x => x.ArticleBlocks.Select(ab => ab.Block)));
+
+
             CreateMap<ArticleDto, Article>()
                 .ForMember(dest => dest.Created, opt => opt.Ignore())
                 .ForMember(dest => dest.ArticleBlocks, opt => opt.MapFrom(x => x.Blocks));

@@ -19,8 +19,10 @@ namespace Entities
         public DbSet<StatusType> StatusTypes { get; set; }
         public DbSet<ArticleBlock> ArticleBlocks { get; set; }
         public DbSet<TrainingBlock> TrainingBlocks { get; set; }
+        public DbSet<RecipeBlock> RecipeBlocks { get; set; }
         public DbSet<Block> Blocks { get; set; }
-        public DbSet<Training> Training { get; set; }
+        public DbSet<Training> Trainings { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -30,12 +32,33 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<RecipeBlock>()
+                .HasKey(x => new { x.RecipeId, x.BlockId });
+            builder.Entity<RecipeBlock>()
+                .HasOne(x => x.Recipe)
+                .WithMany(x => x.RecipeBlocks)
+                .HasForeignKey(x => x.RecipeId);
+
+            builder.Entity<RecipeBlock>()
+                .HasOne(x => x.Block)
+                .WithMany()
+                .HasForeignKey(x => x.BlockId);
+
+            builder.Entity<Recipe>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.Recipes)
+                .HasForeignKey(x => x.CreatorId);
+
+            builder.Entity<Recipe>()
+                .HasOne(x => x.StatusType)
+                .WithMany()
+                .HasForeignKey(x => x.StatusTypeId);
 
             builder.Entity<TrainingBlock>()
               .HasKey(x => new { x.TrainingId, x.BlockId });
             builder.Entity<TrainingBlock>()
                 .HasOne(x => x.Training)
-                .WithMany()
+                .WithMany(x => x.TrainingBlocks)
                 .HasForeignKey(x => x.TrainingId);
 
             builder.Entity<TrainingBlock>()

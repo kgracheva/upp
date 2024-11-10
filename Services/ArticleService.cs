@@ -38,72 +38,72 @@ namespace upp.Services
             return article.Id;
         }
 
-        //public async Task<int> EditProduct(ProductDto dto, CancellationToken token)
-        //{
-        //    if (dto.Id == 0)
-        //        throw new Exception("product Id is null!");
+        public async Task<PaginatedList<ArticleDto>> GetArticles(FindAtriclesDto dto, CancellationToken token)
+        {
+            IQueryable<Article> query = _context.Articles
+                .Include(p => p.ArticleBlocks)
+                .ThenInclude(p => p.Block)
+                .Include(p => p.Creator)
+                .ThenInclude(c => c.Info);
 
-        //    var product = _context.Products.FirstOrDefault(x => x.Id == dto.Id);
+            if (dto.Name != "")
+            {
+                query = query.Where(p => p.Name.ToUpper().Contains(dto.Name.ToUpper()));
+            }
 
-        //    if (product == null)
-        //        throw new Exception("product Id is null!");
+            if (dto.CreatorId != 0)
+            {
+                query = query.Where(p => dto.CreatorId == p.CreatorId);
+            }
 
-        //    product = _mapper.Map(dto, product);
+            query = query.OrderBy(p => p.Name);
 
-        //    _context.Products.Update(product);
-
-        //    _context.Products.Update(product);
-        //    await _context.SaveChangesAsync(token);
-
-        //    return product.Id;
-        //}
-
-        //public async Task<PaginatedList<ProductDto>> GetProducts(FindProductsDto dto, CancellationToken token)
-        //{
-        //    IQueryable<Product> query = _context.Products
-        //        .Include(p => p.Creator)
-        //        .ThenInclude(c => c.Info);
-
-        //    if (dto.SearchName != "")
-        //    {
-        //        query = query.Where(p => p.Name.ToUpper().Contains(dto.SearchName.ToUpper()));
-        //    }
-
-        //    if (dto.CreatorId != 0)
-        //    {
-        //        query = query.Where(p => dto.CreatorId == p.CreatorId);
-        //    }
-
-        //    query = query.OrderBy(p => p.Name);
-
-        //    return await query.ToPaginateListAsync<Product, ProductDto>(_mapper, dto.Page, dto.Size, token);
-        //}
-
-        //public async Task<ProductDto> GetProduct(int id, CancellationToken token)
-        //{
-        //    var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id, token);
-
-        //    if (product == null)
-        //    {
-        //        throw new Exception("Product is null");
-        //    }
-
-        //    return _mapper.Map<Product, ProductDto>(product);
-        //}
-
-        //public async Task Delete(int id, CancellationToken token)
-        //{
-        //    var product = await _context.Products
-        //        .FirstOrDefaultAsync(g => g.Id == id, token);
-
-        //    if (product == null) throw new Exception("Product is null");
-
-        //    product.IsDeleted = true;
-        //    _context.Products.Update(product);
-
-        //    await _context.SaveChangesAsync(token);
-        //}
+            return await query.ToPaginateListAsync<Article, ArticleDto>(_mapper, dto.Page, dto.Size, token);
+        }
 
 
+        public async Task<int> EditArticle(ArticleDto dto, CancellationToken token)
+        {
+            if (dto.Id == 0)
+                throw new Exception("article Id is null!");
+
+            var article = _context.Articles.FirstOrDefault(x => x.Id == dto.Id);
+
+            if (article == null)
+                throw new Exception("article Id is null!");
+
+            article = _mapper.Map(dto, article);
+
+            _context.Articles.Update(article);
+
+            await _context.SaveChangesAsync(token);
+
+            return article.Id;
+        }
+
+        public async Task<ArticleDto> GetArticle(int id, CancellationToken token)
+        {
+            var article = await _context.Articles.FirstOrDefaultAsync(x => x.Id == id, token);
+
+            if (article == null)
+            {
+                throw new Exception("Article is null");
+            }
+
+            return _mapper.Map<Article, ArticleDto>(article);
+        }
+
+        public async Task Delete(int id, CancellationToken token)
+        {
+            var article = await _context.Articles
+                .FirstOrDefaultAsync(g => g.Id == id, token);
+
+            if (article == null) throw new Exception("Article is null");
+
+            article.IsDeleted = true;
+            _context.Articles.Update(article);
+
+            await _context.SaveChangesAsync(token);
+        }
     }
 }
