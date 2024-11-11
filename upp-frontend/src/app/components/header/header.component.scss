@@ -1,0 +1,33 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 600px;
+    box-shadow: 0 4px 10px -2px #80808061;
+}
+
+header h1 {
+    padding: 0;
+    margin: 0;
+    color: #25a147;
+    letter-spacing: 1px;
+    font-size: 24px;
+}
+
+header ul {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+
+header ul a {
+   text-decoration: none;
+   color: #001c08;
+   font-size: 16px;
+}

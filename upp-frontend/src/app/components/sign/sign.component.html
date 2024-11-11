@@ -1,0 +1,21 @@
+<div class="sign-wrap">
+    <div class="sign-form"  *ngIf="!isSignUp">
+        <form>
+            <input type="text" placeholder="Email" />
+            <input type="password" placeholder="Пароль" />
+            <button>Войти</button>
+        </form>
+        <button (click)="isSignUp = !isSignUp">Нет аккаунта? Зарегистрироваться</button>
+    </div>
+    
+    <div class="sign-form" *ngIf="isSignUp">
+        <form>
+            <input type="text" placeholder="Email" />
+            <input type="password" placeholder="Пароль" />
+            <input type="text" placeholder="Фамилия" />
+            <input type="text" placeholder="Имя" />
+            <button>Зарегистрироваться</button>
+        </form>
+        <button (click)="isSignUp = !isSignUp">Есть аккаунт? Войти</button>
+    </div>
+</div>
