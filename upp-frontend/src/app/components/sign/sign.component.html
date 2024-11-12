@@ -10,10 +10,10 @@
     
     <div class="sign-form" *ngIf="isSignUp">
         <form>
-            <input type="text" placeholder="Email" [(ngModel)]="userModel.email" />
-            <input type="password" placeholder="Пароль" [(ngModel)]="userModel.password" />
-            <input type="text" placeholder="Фамилия" [(ngModel)]="userModel.lastname"  />
-            <input type="text" placeholder="Имя" [(ngModel)]="userModel.name" />
+            <input type="text" name="email" placeholder="Email" [(ngModel)]="userModel.email" />
+            <input type="password" name="password" placeholder="Пароль" [(ngModel)]="userModel.password" />
+            <input type="text"  name="lastname" placeholder="Фамилия" [(ngModel)]="userModel.lastname"  />
+            <input type="text" name="name" placeholder="Имя" [(ngModel)]="userModel.name" />
             <button (click)="signUp()">Зарегистрироваться</button>
         </form>
         <button (click)="isSignUp = !isSignUp">Есть аккаунт? Войти</button>

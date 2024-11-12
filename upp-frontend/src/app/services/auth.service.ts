@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
+import { UserLoginDto } from '../models/UserLoginDto';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   // private readonly STORAGE_KEY = 'user';
   private _user: User | null = null;
-  ref: string = "http://localhost:7171/api/auth";
+  ref: string = "https://localhost:7171/api/Auth";
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -23,23 +24,12 @@ export class AuthService {
     return this.httpClient.post(this.ref, model);
   }
 
-  // public login(
-  //   model: LoginDto,
-  //   returnUrl: string = '/'
-  // ): Observable<AuthResultOfAuthResponseDto> {
-  //   return this.authClient.auth(model).pipe(
-  //     tap(async (response) => {
-  //       if (response.isSuccess) {
-  //         localStorage.setItem(
-  //           this.STORAGE_KEY,
-  //           JSON.stringify(response.result)
-  //         );
-  //         await this.router.navigateByUrl(returnUrl);
-  //       }
-  //     })
-  //   );
-  // }
+  public login(model: UserLoginDto, returnUrl: string = '/') {
+    
+  }
 
+
+ 
   // public loginVk(vkId: number, returnUrl: string = '/') {
   //   return this.authClient.authVk(new VkLoginDto({ vkId: vkId })).pipe(
   //     tap(async (response) => {
