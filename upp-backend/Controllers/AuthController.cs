@@ -23,11 +23,16 @@ namespace upp.Controllers
             return Ok(await _authService.Login(dto, token));
         }
 
-
         [HttpPost]
         public async Task<ActionResult<int>> CreateAdmin(AddUserDto dto, CancellationToken token)
         {
-            return Ok(await _authService.CreateUser(dto, Roles.Admin));
+            return Ok(await _authService.CreateClient(dto));
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult<int>> CreateAdmin(AddUserDto dto, CancellationToken token)
+        //{
+        //    return Ok(await _authService.CreateUser(dto, Roles.Admin));
+        //}
     }
 }

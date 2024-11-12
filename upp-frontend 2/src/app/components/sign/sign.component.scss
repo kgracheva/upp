@@ -1,0 +1,47 @@
+.sign-wrap {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.sign-form, .sign-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.sign-form {
+    gap: 30px;
+}
+
+.sign-form form input {
+    padding: 5px;
+    font-size: 18px;
+    border: 0;
+    border-bottom: 1px solid #515151;
+    width: 300px;
+    padding: 10px 15px;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+}
+
+.sign-form button {
+    padding: 10px 30px;
+    background: none;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #25a165;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sign-form button:hover {
+    background-color: #25a165;
+    color: #fff;
+}

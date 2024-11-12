@@ -1,0 +1,101 @@
+.calories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px;
+    gap: 50px;
+}
+
+.calories-count-wrap, .bgu-count-wrap {
+    display: flex;
+    gap: 150px;
+    align-items: center;
+    justify-content: center;
+}
+
+.part-count, .bgu-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.part-count .count {
+    font-size: 26px;
+    line-height: 26px;
+}
+
+.part-count .type {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.part-count:nth-child(2) {
+    padding: 44px 24px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.bgu-count-wrap {
+    width: 100%;
+}
+
+.bgu-part {
+    width: 8%;
+}
+
+.bgu-part .name {
+    font-size: 18px;
+}
+
+.bgu-part .chart {
+    border: 2px solid #f00;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.nutrition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.nutrition-type, .nutrition-part {
+    display: flex;
+    align-items: center;
+}
+
+.nutrition-part {
+    gap: 15px;
+}
+
+.nutrition-type {
+    width: 40%;
+    justify-content: space-between;
+}
+
+.nutrition-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.nutrition-info h3 {
+    margin: 0;
+}
+
+.emoji {
+    width: 40px;
+    height: 40px;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+}
