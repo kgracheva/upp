@@ -18,7 +18,7 @@ namespace upp.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<string>> Login(UserLoginDto dto, CancellationToken token)
+        public async Task<ActionResult<AuthUserDto>> Login(UserLoginDto dto, CancellationToken token)
         {
             return Ok(await _authService.Login(dto, token));
         }

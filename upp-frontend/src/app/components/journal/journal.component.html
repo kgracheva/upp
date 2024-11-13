@@ -1,38 +1,39 @@
-<div class="calories">
+
+<div class="calories" *ngIf="isLoading">
     <div class="calories-count-wrap">
         <div class="part-count">
-            <span class="count">2000</span>
+            <span class="count">{{ caloriesByDay!.caloriesCount }}</span>
             <span class="type">съедено</span>
         </div>
         <div class="part-count">
-            <span class="count">1400</span>
+            <span class="count">{{ caloriesByDay!.allCaloriesByDay - caloriesByDay!.caloriesCount }}</span>
             <span class="type">осталось</span>
         </div>
         <div class="part-count">
-            <span class="count">2000</span>
+            <span class="count">0</span>
             <span class="type">соженно</span>
         </div>
     </div>
     <div class="bgu-count-wrap">
         <div class="bgu-part">
             <span class="name">Углеводы</span>
-            <span class="chart"></span>
-            <span class="count">0 / 150 г</span>
+                <span class="chart"></span>
+            <span class="count">{{ caloriesByDay!.carbsCount }} / 20 г</span>
         </div>
         <div class="bgu-part">
             <span class="name">Белки</span>
             <span class="chart"></span>
-            <span class="count">0 / 150 г</span>
+            <span class="count">{{ caloriesByDay!.proteinsCount }} / 40 г</span>
         </div>
         <div class="bgu-part">
             <span class="name">Жиры</span>
             <span class="chart"></span>
-            <span class="count">0 / 150 г</span>
+            <span class="count">{{ caloriesByDay!.fatsCount }} / 30 г</span>
         </div>
     </div>
 </div>
 
-<div class="nutrition">
+<div class="nutrition" *ngIf="isLoading">
     <div class="nutrition-type">
         <div class="nutrition-part">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 48 48" class="emoji">
@@ -83,10 +84,10 @@
             </svg>
             <div class="nutrition-info">
                 <h3>Завтрак</h3>
-                <span>0 / 150 ккал</span>
+                <span>{{ caloriesByDay!.breakfastCount }} / {{ caloriesByDay!.allCaloriesByDay / 3 }} ккал</span>
             </div>
         </div>
-        <button>
+        <button (click)="addProduct(1)">
             <svg fill="#028000" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512" stroke="#028000">
 
             <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -103,10 +104,10 @@
             <img src="../../../assets/hot-soup.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Обед</h3>
-                <span>0 / 150 ккал</span>
+                <span>{{ caloriesByDay!.lunchCount }} / {{ caloriesByDay!.allCaloriesByDay / 3 }} ккал</span>
             </div>
         </div>
-        <button>
+        <button (click)="addProduct(2)">
             <svg fill="#028000" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512" stroke="#028000">
 
             <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -123,10 +124,10 @@
             <img src="../../../assets/salad.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Ужин</h3>
-                <span>0 / 150 ккал</span>
+                <span>{{ caloriesByDay!.dinnerCount }} / {{ caloriesByDay!.allCaloriesByDay / 3 }} ккал</span>
             </div>
         </div>
-        <button>
+        <button (click)="addProduct(1)">
             <svg fill="#028000" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512" stroke="#028000">
 
             <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -143,7 +144,7 @@
             <img src="../../../assets/mandarin.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Перекус</h3>
-                <span>0 / 150 ккал</span>
+                <span>0 / 90 ккал</span>
             </div>
         </div>
         <button>

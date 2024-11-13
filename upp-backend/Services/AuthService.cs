@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Entities;
 using upp.Dtos.User;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Services
@@ -19,7 +21,7 @@ namespace Services
             _userManager = userManager;
         }
 
-        public async Task<string> Login(UserLoginDto dto, CancellationToken token)
+        public async Task<AuthUserDto> Login(UserLoginDto dto, CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
 
@@ -34,7 +36,13 @@ namespace Services
 
                 var jwtToken = GetJwtToken(authClaims);
 
-                return jwtToken;
+                var authDto = new AuthUserDto() {
+                    Key = jwtToken,
+                    UserId = user.Id, 
+                    Roles = (List<string>)await _userManager.GetRolesAsync(user)
+                };
+
+                return authDto;
             }
             else
             {

@@ -14,7 +14,7 @@ const routes: Routes = [
       component: JournalComponent, 
       canActivate: [AuthGuard],
       data: {
-        roles: ['Admin', 'Moderator', 'Operator']
+        roles: ['Client']
       },
   },
   { path: "nutrition", component: NutritionComponent},];

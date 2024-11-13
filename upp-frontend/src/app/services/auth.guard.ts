@@ -23,21 +23,21 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    // let token = this.authService.getToken();
-    // if (!token) {
+    let token = this.authService.getToken();
+    if (!token) {
       this.router.navigate([this.LOGIN_ROUTE], {
         queryParams: { returnUrl: state.url },
       });
       return false;
-    // }
+    }
 
     let acceptedRoles: string[] | null = route.data['roles']; //Роли которые имеют доступ к данному компоненту
 
     if (acceptedRoles) {
-      // let roles = this.authService.getRoles();
-      // if (roles) {
-      //   return roles.filter((x) => acceptedRoles?.includes(x)).length > 0;
-      // }
+      let roles = this.authService.getRoles();
+      if (roles) {
+        return roles.filter((x) => acceptedRoles?.includes(x)).length > 0;
+      }
       return false;
     }
 

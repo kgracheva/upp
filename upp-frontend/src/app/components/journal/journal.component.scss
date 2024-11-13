@@ -6,6 +6,17 @@
     gap: 50px;
 }
 
+.circular-progress {
+    border: solid 1px hotpink;
+    width: 50vmin;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: transparent;
+    mask: 
+      linear-gradient(red 0 0) padding-box, 
+      conic-gradient(red var(--p, 18%), transparent 0%) border-box
+  }
+
 .calories-count-wrap, .bgu-count-wrap {
     display: flex;
     gap: 150px;
@@ -31,9 +42,23 @@
 }
 
 .part-count:nth-child(2) {
-    padding: 44px 24px;
-    border: 1px solid #000;
+    // padding: 44px 24px;
+    // border: 1px solid #000;
+    // border-radius: 50%;
+    .count {
+        padding: 37px 0 0 0;
+    }
+    border: solid 6px rgb(140, 255, 105);
+    border-radius: 5px;
+    width: 141px;
+    aspect-ratio: 1;
     border-radius: 50%;
+    background: transparent;
+    mask: 
+      linear-gradient(red 0 0) padding-box, 
+      conic-gradient(red var(--p, 18%), transparent 0%) border-box
+
+    
 }
 
 .bgu-count-wrap {
@@ -49,16 +74,22 @@
 }
 
 .bgu-part .chart {
-    border: 2px solid #f00;
+    border: 2px solid rgb(116, 116, 116);
     width: 100%;
     border-radius: 4px;
 }
+
+// .bgu-part .chart-s,all {
+//     border: 2px solid rgb(45, 170, 0);
+    
+// }
 
 .nutrition {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    padding-bottom: 50px;
 }
 
 .nutrition-type, .nutrition-part {

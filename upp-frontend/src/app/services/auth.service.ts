@@ -14,7 +14,7 @@ import { UserLoginDto } from '../models/UserLoginDto';
 export class AuthService {
   // private readonly STORAGE_KEY = 'user';
   private _user: User | null = null;
-  ref: string = "https://localhost:7171/api/Auth";
+  ref: string = "http://localhost:5214/api/Auth";
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   public login(model: UserLoginDto, returnUrl: string = '/') {
-    
+    return this.httpClient.post(this.ref + "/login", model);
   }
 
 
@@ -96,35 +96,23 @@ export class AuthService {
   //   );
   // }
 
-  // public getToken(): string | null {
-  //   const user: User | null = this.user();
+  public getToken(): string | null {
+    return JSON.parse(localStorage.getItem('user')!).key;
+  }
 
-  //   if (user) {
-  //     return user.token;
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  public getRoles(): string[] {
+    return JSON.parse(localStorage.getItem('user')!).roles;
+  }
 
-  // public getRoles(): string[] | null {
-  //   const user: User | null = this.user();
+  public user(): User| null {
+    if (this._user) {
+      return this._user;
+    }
 
-  //   if (user) {
-  //     return user.roles.split('|');
-  //   } else {
-  //     return null;
-  //   }
-  // }
+    this._user = JSON.parse(localStorage.getItem('user') ?? 'null');
 
-  // public user(): User| null {
-  //   if (this._user) {
-  //     return this._user;
-  //   }
-
-  //   this._user = JSON.parse(localStorage.getItem(this.STORAGE_KEY) ?? 'null');
-
-  //   return this._user;
-  // }
+    return this._user;
+  }
 
   // public logout(returnUrl: string = '/login'): void {
   //   this._user = null;

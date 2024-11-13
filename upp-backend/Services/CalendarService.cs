@@ -98,6 +98,8 @@ namespace upp.Services
         public async Task<DateCaloriesDto> CountDayCalories(CaloriesDto dto, CancellationToken token)
         {
             var calendar = await _context.Calendars
+                .Include(x => x.User)
+                .ThenInclude(x => x.Info)
                 .Include(x => x.Product)
                 .Include(x => x.MealType)
                 .Where(x => x.UserId == dto.UserId && dto.Date.Value.Date == x.Created.Value.Date)
@@ -106,13 +108,27 @@ namespace upp.Services
             if (calendar == null) throw new Exception("Calendar is null");
 
             var dc = new DateCaloriesDto();
+            dc.AllCaloriesByDay = calendar.FirstOrDefault()!.User!.Info!.CaloriesCountByDay;
 
             foreach(var c in calendar)
             {
-                dc.ProteinsCount += c.Product.ProteinsCount * c.ProductCount;
-                dc.FatsCount += c.Product.FatsCount * c.ProductCount;
-                dc.CarbsCount += c.Product.CarbsCount * c.ProductCount;
-                dc.CaloriesCount += c.Product.CaloriesCount * c.ProductCount;
+                dc.ProteinsCount += c.Product.ProteinsCount * (c.ProductCount / 100);
+                dc.FatsCount += c.Product.FatsCount *  (c.ProductCount / 100);
+                dc.CarbsCount += c.Product.CarbsCount *  (c.ProductCount / 100);
+                dc.CaloriesCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+
+                if(c.MealTypeId == 1) {
+                    dc.BreakfastCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                }
+
+                if(c.MealTypeId == 2) {
+                    dc.LunchCount += c.Product.CaloriesCount* (c.ProductCount / 100);
+                }
+
+                if(c.MealTypeId == 3) {
+                    dc.DinnerCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                }
+
             }
 
             return dc;

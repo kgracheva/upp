@@ -1,9 +1,9 @@
 <div class="sign-wrap">
     <div class="sign-form"  *ngIf="!isSignUp">
         <form>
-            <input type="text" placeholder="Email" />
-            <input type="password" placeholder="Пароль" />
-            <button>Войти</button>
+            <input type="text" name="email-auth" [(ngModel)]="userLogin.email" placeholder="Email" />
+            <input type="password" name="email-auth" [(ngModel)]="userLogin.password" placeholder="Пароль" />
+            <button (click)="login()">Войти</button>
         </form>
         <button (click)="isSignUp = !isSignUp">Нет аккаунта? Зарегистрироваться</button>
     </div>
