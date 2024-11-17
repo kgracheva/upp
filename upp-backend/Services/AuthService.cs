@@ -32,10 +32,13 @@ namespace Services
 
             if (await _userManager.CheckPasswordAsync(user, dto.Password))
             {
+                var returnDto = new AuthUserDto();
+
                 var authClaims = await GenerateAuthClaims(user);
 
                 var jwtToken = GetJwtToken(authClaims);
 
+<<<<<<< Updated upstream
                 var authDto = new AuthUserDto() {
                     Key = jwtToken,
                     UserId = user.Id, 
@@ -43,6 +46,9 @@ namespace Services
                 };
 
                 return authDto;
+=======
+                returnDto.Key = jwtToken;
+>>>>>>> Stashed changes
             }
             else
             {
