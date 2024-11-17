@@ -56,9 +56,7 @@
     background: transparent;
     mask: 
       linear-gradient(red 0 0) padding-box, 
-      conic-gradient(red var(--p, 18%), transparent 0%) border-box
-
-    
+      conic-gradient(red var(--p, 18%), transparent 0%) border-box    
 }
 
 .bgu-count-wrap {
