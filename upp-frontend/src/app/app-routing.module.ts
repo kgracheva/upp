@@ -9,14 +9,15 @@ import { FormComponent } from './components/form/form.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { RequestComponent } from './components/request/request.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleComponent } from './components/article/article.component';
 
-const routes: Routes = [ 
-  { 
+const routes: Routes = [
+  {
     path: "", component: SignComponent
   },
-  { 
-      path: "journal", 
-      component: JournalComponent, 
+  {
+      path: "journal",
+      component: JournalComponent,
       canActivate: [AuthGuard],
       data: {
         roles: ['Client']
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: "nutrition", component: NutritionComponent},
   {
     path: "lk",
-    component: LkComponent, 
+    component: LkComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['Client']
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: "form",
-    component: FormComponent, 
+    component: FormComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['Client']
@@ -41,7 +42,7 @@ const routes: Routes = [
   },
   {
     path: "requests",
-    component: RequestsComponent, 
+    component: RequestsComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['Client']
@@ -49,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: "request",
-    component: RequestComponent, 
+    component: RequestComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['Client']
@@ -57,12 +58,18 @@ const routes: Routes = [
   },
   {
     path: "articles",
-    component: ArticlesComponent, 
-    canActivate: [AuthGuard],
+    component: ArticlesComponent,
     data: {
       roles: ['Client']
     },
-  }
+  },
+  {
+    path: "article/:id",
+    component: ArticleComponent,
+    data: {
+      roles: ['Client']
+    },
+  },
 ];
 
 @NgModule({

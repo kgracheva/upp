@@ -11,19 +11,20 @@ import { SpecialData } from "../models/SpecialData";
 import { ArticleDto } from "../models/ArticleDto";
 
 @Injectable({
-    providedIn: 'root',
-  })
+  providedIn: "root",
+})
 export class EntityService {
-    refArticle: string = "https://localhost:7171/api/Article";
-    refRecipe: string = "https://localhost:7171/api/Recipe";
-    refTraining: string = "https://localhost:7171/api/Training";
+  refArticle: string = "https://localhost:7171/api/Article";
+  refRecipe: string = "https://localhost:7171/api/Recipe";
+  refTraining: string = "https://localhost:7171/api/Training";
 
-    constructor(private httpClient: HttpClient, private router: Router) {
-    }
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
+  public getArticles() {
+    return this.httpClient.get<PaginatedList<ArticleDto>>(this.refArticle);
+  }
 
-
-    public getArticles() {
-      return this.httpClient.get<PaginatedList<ArticleDto>>(this.refArticle);
-    }
+  public getArticle(id: any) {
+    return this.httpClient.get<ArticleDto>(this.refArticle + "/" + id);
+  }
 }

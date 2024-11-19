@@ -18,6 +18,7 @@ import { RequestBlockComponent } from './components/request-block/request-block.
 import { RequestComponent } from './components/request/request.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { ArticleComponent } from './components/article/article.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ArticleCardComponent } from './components/article-card/article-card.com
     RequestBlockComponent,
     RequestComponent,
     ArticlesComponent,
-    ArticleCardComponent
+    ArticleCardComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,15 @@
 .card-wrap {
     display: flex;
     flex-direction: column;
-    border: 1px solid #000;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
     padding: 15px 20px;
     border-radius: 5px;
     gap: 15px;
+    cursor: pointer;
     h4 {
         font-weight: 400;
         font-size: 20px;
@@ -16,5 +20,9 @@
         margin: 0;
         font-size: 16px;
     }
+}
+
+.card-wrap:hover {
+  background-color: #ddd;
 }
 
