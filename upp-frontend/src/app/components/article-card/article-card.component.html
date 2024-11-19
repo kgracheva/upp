@@ -1,7 +1,7 @@
 
-<div class="card card-wrap" routerLink="/article/{{article.id}}">
+<div class="card card-wrap">
   <div class="card-body">
     <h5 class="card-title">{{ article!.name }}</h5>
-    <p class="card-text">{{ article!.creatorName }}</p>
+    <p class="card-text" *ngIf="article!.creatorName">{{ article!.creatorName }}</p>
   </div>
 </div>

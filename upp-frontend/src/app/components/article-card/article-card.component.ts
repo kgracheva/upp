@@ -7,5 +7,5 @@ import { ArticleDto } from '../../models/ArticleDto';
   styleUrl: './article-card.component.scss'
 })
 export class ArticleCardComponent {
-  @Input() article!: ArticleDto;
+  @Input() article!: any;
 }

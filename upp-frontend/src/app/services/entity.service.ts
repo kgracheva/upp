@@ -9,6 +9,8 @@ import { Calories } from "../models/Calories";
 import { CaloriesByDay } from "../models/CaloriesByDay";
 import { SpecialData } from "../models/SpecialData";
 import { ArticleDto } from "../models/ArticleDto";
+import { TrainingDto } from "../models/TrainingDto";
+import { RecipeDto } from "../models/RecipeDto";
 
 @Injectable({
   providedIn: "root",
@@ -26,5 +28,21 @@ export class EntityService {
 
   public getArticle(id: any) {
     return this.httpClient.get<ArticleDto>(this.refArticle + "/" + id);
+  }
+
+  public getTrainings() {
+    return this.httpClient.get<PaginatedList<TrainingDto>>(this.refTraining);
+  }
+
+  public getTraining(id: any) {
+    return this.httpClient.get<TrainingDto>(this.refTraining + "/" + id);
+  }
+
+  public getRecipes() {
+    return this.httpClient.get<PaginatedList<RecipeDto>>(this.refRecipe);
+  }
+
+  public getRecipe(id: any) {
+    return this.httpClient.get<RecipeDto>(this.refRecipe + "/" + id);
   }
 }

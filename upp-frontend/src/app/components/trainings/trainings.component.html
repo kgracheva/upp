@@ -1,0 +1,7 @@
+
+<div class="container">
+  <h2>Тренировки</h2>
+  <app-article-card *ngFor="let art of trainingsList" [article]="art" routerLink="/training/{{art.id}}"></app-article-card>
+
+</div>
+

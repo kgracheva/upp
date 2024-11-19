@@ -1,0 +1,7 @@
+
+<div class="container">
+  <h2>Рецепты</h2>
+  <app-article-card *ngFor="let art of recipesList" [article]="art" routerLink="/recipe/{{art.id}}"></app-article-card>
+
+</div>
+

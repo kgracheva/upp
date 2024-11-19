@@ -84,7 +84,10 @@ namespace upp.Services
 
         public async Task<RecipeDto> GetRecipe(int id, CancellationToken token)
         {
-            var recipe = await _context.Recipes.FirstOrDefaultAsync(x => x.Id == id, token);
+            var recipe = await _context.Recipes
+                .Include(x => x.RecipeBlocks)
+                .ThenInclude(x => x.Block)
+                .FirstOrDefaultAsync(x => x.Id == id, token);
 
             if (recipe == null)
             {

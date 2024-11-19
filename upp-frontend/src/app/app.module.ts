@@ -19,12 +19,17 @@ import { RequestComponent } from './components/request/request.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { ArticleComponent } from './components/article/article.component';
+import { TrainingsComponent } from './components/trainings/trainings.component';
+import { TrainingComponent } from './components/training/training.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import { SafePipe } from 'safe-pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, 
+    HeaderComponent,
     SignComponent,
     JournalComponent,
     NutritionComponent,
@@ -35,7 +40,11 @@ import { ArticleComponent } from './components/article/article.component';
     RequestComponent,
     ArticlesComponent,
     ArticleCardComponent,
-    ArticleComponent
+    ArticleComponent,
+    TrainingsComponent,
+    TrainingComponent,
+    RecipesComponent,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,8 @@ import { ArticleComponent } from './components/article/article.component';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
+    SafePipe
   ],
   providers: [],
   bootstrap: [AppComponent]

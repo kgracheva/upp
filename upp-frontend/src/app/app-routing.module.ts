@@ -10,6 +10,10 @@ import { RequestsComponent } from './components/requests/requests.component';
 import { RequestComponent } from './components/request/request.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/article/article.component';
+import { TrainingComponent } from './components/training/training.component';
+import { TrainingsComponent } from './components/trainings/trainings.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
 
 const routes: Routes = [
   {
@@ -66,6 +70,36 @@ const routes: Routes = [
   {
     path: "article/:id",
     component: ArticleComponent,
+    data: {
+      roles: ['Client']
+    },
+  },
+
+  {
+    path: "trainings",
+    component: TrainingsComponent,
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "training/:id",
+    component: TrainingComponent,
+    data: {
+      roles: ['Client']
+    },
+  },
+
+  {
+    path: "recipes",
+    component: RecipesComponent,
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "recipe/:id",
+    component: RecipeComponent,
     data: {
       roles: ['Client']
     },
