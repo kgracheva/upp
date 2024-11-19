@@ -22,3 +22,20 @@
 .info-wrap {
     width: 100%;
 }
+
+form {
+    input {
+        border: none; 
+        outline: none;
+        font-size: 18px;
+    }
+
+    input[type="text"]:disabled {
+        background: transparent;
+    }
+    
+    select {
+        border: none;
+        outline: none;
+    }
+}

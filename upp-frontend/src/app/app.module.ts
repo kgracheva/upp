@@ -12,6 +12,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LkComponent } from './components/lk/lk.component';
 import { FormComponent } from './components/form/form.component';
+import { RequestsComponent } from './components/requests/requests.component';
+import { MatTableModule } from '@angular/material/table';
+import { RequestBlockComponent } from './components/request-block/request-block.component';
+import { RequestComponent } from './components/request/request.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +28,12 @@ import { FormComponent } from './components/form/form.component';
     JournalComponent,
     NutritionComponent,
     LkComponent,
-    FormComponent
+    FormComponent,
+    RequestsComponent,
+    RequestBlockComponent,
+    RequestComponent,
+    ArticlesComponent,
+    ArticleCardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +41,8 @@ import { FormComponent } from './components/form/form.component';
     FormsModule,
     CommonModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

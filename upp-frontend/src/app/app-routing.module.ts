@@ -6,6 +6,9 @@ import { AuthGuard } from './services/auth.guard';
 import { NutritionComponent } from './components/nutrition/nutrition.component';
 import { LkComponent } from './components/lk/lk.component';
 import { FormComponent } from './components/form/form.component';
+import { RequestsComponent } from './components/requests/requests.component';
+import { RequestComponent } from './components/request/request.component';
+import { ArticlesComponent } from './components/articles/articles.component';
 
 const routes: Routes = [ 
   { 
@@ -31,6 +34,30 @@ const routes: Routes = [
   {
     path: "form",
     component: FormComponent, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "requests",
+    component: RequestsComponent, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "request",
+    component: RequestComponent, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "articles",
+    component: ArticlesComponent, 
     canActivate: [AuthGuard],
     data: {
       roles: ['Client']

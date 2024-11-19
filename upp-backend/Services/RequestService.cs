@@ -18,7 +18,11 @@ namespace upp.Services
 
         private readonly IMapper _mapper;
 
-        public RequestService(ApplicationDbContext context, IMapper mapper, ArticleService articleService, RecipeService recipeService, TrainingService trainingService)
+        public RequestService(ApplicationDbContext context, 
+            IMapper mapper,
+            ArticleService articleService, 
+            RecipeService recipeService, 
+            TrainingService trainingService)
         {
             _context = context;
             _mapper = mapper;
@@ -29,7 +33,7 @@ namespace upp.Services
 
         public async Task<int> CreateRequest(CreateRequestDto dto, CancellationToken token)
         {
-            if(dto.Article == null || dto.Recipe == null || dto.Training == null)
+            if(dto.Article == null && dto.Recipe == null && dto.Training == null)
             {
                 throw new Exception("Everything is null");
             }
@@ -74,12 +78,12 @@ namespace upp.Services
 
         public async Task<PaginatedList<RequestDto>> GetRequests(FindRequestsDto dto, CancellationToken token)
         {
-            var query = GetQueryRequests(dto.RequestType);
+            var query = GetQueryRequests(dto.RequestType, token);
 
-            return await query.ToPaginateListAsync<Request, RequestDto>(_mapper, dto.Page, dto.Size, token);
+            return await query.ToPaginateListAsync<RequestDto, RequestDto>(_mapper, dto.Page, dto.Size, token);
         }
 
-        private IQueryable<Request> GetQueryRequests(RequestType type)
+        private IQueryable<RequestDto> GetQueryRequests(RequestType type, CancellationToken token)
         {
             IQueryable<Request> query = _context.Requests
                 .Include(p => p.Operator)
@@ -89,47 +93,50 @@ namespace upp.Services
 
             if (type == RequestType.Article)
             {
-                query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new {
+                return query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
                     Id = x.Id,
                     EntityId = c.Id,
                     RequestType = RequestType.Article,
+                    Name = c.Name, 
                     Comment = x.Comment,
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
-                    OpertorId = x.OperatorId,
+                    OperatorId = x.OperatorId,
                     OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
                 });
             }
 
             if (type == RequestType.Training)
             {
-                query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new {
+                return query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
                     Id = x.Id,
                     EntityId = c.Id,
+                    Name = c.Name, 
                     RequestType = RequestType.Training,
                     Comment = x.Comment,
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
-                    OpertorId = x.OperatorId,
+                    OperatorId = x.OperatorId,
                     OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
                 });
             }
 
             if (type == RequestType.Recipe)
             {
-                query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new {
+                return query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
                     Id = x.Id,
                     EntityId = c.Id,
+                    Name = c.Name, 
                     RequestType = RequestType.Recipe,
                     Comment = x.Comment,
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
-                    OpertorId = x.OperatorId,
+                    OperatorId = x.OperatorId,
                     OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
                 });
             }
 
-            return query;
+           throw new Exception("asdasd");
         }
 
 

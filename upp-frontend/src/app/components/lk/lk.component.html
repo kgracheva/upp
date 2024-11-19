@@ -10,10 +10,10 @@
     </div>
     <div class="info-wrap">
         <form *ngIf="!isLoading">
-            <input type="text"  name="lastname" placeholder="Фамилия"  [(ngModel)]="specialData.lastname" />
-            <input type="text" name="name" placeholder="Имя" [(ngModel)]="specialData.name" />
-            <input type="text" name="weight" placeholder="Вес" [(ngModel)]="specialData.weight" />
-            <input type="text" name="desiredWeight" placeholder="Желаемый вес" [(ngModel)]="specialData.desiredWeight" />
+            <input type="text"  name="lastname" placeholder="Фамилия"  disabled [(ngModel)]="specialData.lastname" />
+            <input type="text" name="name" placeholder="Имя" disabled [(ngModel)]="specialData.name" />
+            <input type="text" name="weight" placeholder="Вес" disabled [(ngModel)]="specialData.weight" />
+            <input type="text" name="desiredWeight" placeholder="Желаемый вес" disabled [(ngModel)]="specialData.desiredWeight" />
             <select name="goal" id="goal-sel">
                 <option value="1">Похудение</option>
                 <option value="2">Поддержание веса</option>

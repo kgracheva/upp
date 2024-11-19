@@ -1,0 +1,20 @@
+.block-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.block-id {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.block-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.block-text {
+    resize: none;
+    height: 150px;
+}

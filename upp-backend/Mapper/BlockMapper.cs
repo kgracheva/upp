@@ -17,6 +17,9 @@ namespace upp.Mapper
 
             CreateMap<BlockDto, TrainingBlock>()
                 .ForMember(dest => dest.Block, opt => opt.MapFrom(x => x));
+            
+            CreateMap<BlockDto, RecipeBlock>()
+                .ForMember(dest => dest.Block, opt => opt.MapFrom(x => x));
         }
     }
 }

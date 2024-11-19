@@ -65,6 +65,8 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CalendarService>();
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<TrainingService>();
+builder.Services.AddScoped<RecipeService>();
+builder.Services.AddScoped<RequestService>();
 
 var app = builder.Build();
 

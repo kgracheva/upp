@@ -1,0 +1,20 @@
+.card-wrap {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    width: 70%;
+    padding: 15px 20px;
+    border-radius: 5px;
+    gap: 15px;
+    h4 {
+        font-weight: 400;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+        font-size: 16px;
+    }
+}
+
