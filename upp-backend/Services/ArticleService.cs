@@ -83,7 +83,10 @@ namespace upp.Services
 
         public async Task<ArticleDto> GetArticle(int id, CancellationToken token)
         {
-            var article = await _context.Articles.FirstOrDefaultAsync(x => x.Id == id, token);
+            var article = await _context.Articles
+                .Include(x => x.ArticleBlocks)
+                .ThenInclude(x => x.Block)
+                .FirstOrDefaultAsync(x => x.Id == id, token);
 
             if (article == null)
             {

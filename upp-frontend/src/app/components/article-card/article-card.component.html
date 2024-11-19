@@ -1,4 +1,7 @@
-<div class="card-wrap">
-    <h4>{{ article!.name }}</h4>
-    <p>{{ article!.creatorName }}</p> 
+
+<div class="card card-wrap">
+  <div class="card-body">
+    <h5 class="card-title">{{ article!.name }}</h5>
+    <p class="card-text" *ngIf="article!.creatorName">{{ article!.creatorName }}</p>
+  </div>
 </div>

@@ -1,0 +1,8 @@
+<div class="container">
+  <h3>{{training?.name}}</h3>
+  <div class="w-100"> <iframe style="display:block;" class="player" width="800" height="600"
+      [src]="('https://www.youtube.com/embed/' + training?.videoRef) | safe: 'resourceUrl'">
+    </iframe>
+  </div>
+
+</div>

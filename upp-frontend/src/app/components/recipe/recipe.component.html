@@ -1,0 +1,30 @@
+<div class="container">
+  <h3>{{recipe?.name}}</h3>
+  <div class="energy">
+    <div class="d-flex cl">
+      <div class="cell">
+        <div class="energy-name">Белки: </div>
+        <div class="energy-value">{{recipe?.proteinsCount}}</div>
+      </div>
+      <div class="cell">
+        <div class="energy-name">Жиры: </div>
+        <div class="energy-value">{{recipe?.fatsCount}}</div>
+      </div>
+    </div>
+    <div class="d-flex cl">
+      <div class="cell">
+        <div class="energy-name">Углеводы: </div>
+        <div class="energy-value">{{recipe?.carbsCount}}</div>
+      </div>
+      <div class="cell">
+        <div class="energy-name">Энергетическая ценность ккал: </div>
+        <div class="energy-value">{{recipe?.caloriesCount}}</div>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let b of recipe?.blocks">
+    <h4 *ngIf="b.heading">{{b.heading}}</h4>
+    <h5 *ngIf="b.subheading">{{b.subheading}}</h5>
+    <p>{{b.text}}</p>
+  </div>
+</div>

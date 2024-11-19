@@ -1,6 +1,7 @@
 
-<div class="cards-wrap">
+<div class="container">
     <h2>Статьи психологов</h2>
-    <app-article-card *ngFor="let art of articlesList" [article]="art"></app-article-card>
+    <app-article-card *ngFor="let art of articlesList" [article]="art" routerLink="/article/{{art.id}}"></app-article-card>
+
 </div>
 

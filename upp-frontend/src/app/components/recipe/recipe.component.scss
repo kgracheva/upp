@@ -1,0 +1,36 @@
+h3 {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+h4, h5 {
+  margin-left: 12px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.energy-name {
+  min-width: 250px;
+
+  border-bottom: 1px solid #ccc;
+}
+
+.energy {
+  box-shadow: 0 2px 8px 1px rgba(0,0,0,0.2);
+  width: max-content;
+  padding: 12px;
+}
+
+.cell {
+  margin: 8px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+
+}
