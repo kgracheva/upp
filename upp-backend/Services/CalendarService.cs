@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
 using Entities;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+
 using System.Linq;
+using System.Reflection;
 using upp.Dtos.Calendar;
 using upp.Dtos.Product;
+using upp.Dtos.User;
 using upp.Entities;
 using upp.Mapper;
 
@@ -81,7 +86,7 @@ namespace upp.Services
                 query = query.Where(x => dto.Date.Value.Date == x.Created.Value.Date);
             }
 
-            return await query.ToPaginateListAsync<Calendar, CalendarDto>(_mapper, dto.Page, dto.Size, token);
+            return await query.ToPaginateListAsync<Entities.Calendar, CalendarDto>(_mapper, dto.Page, dto.Size, token);
         }
 
         public async Task Delete(int id, CancellationToken token)
@@ -108,30 +113,77 @@ namespace upp.Services
             if (calendar == null) throw new Exception("Calendar is null");
 
             var dc = new DateCaloriesDto();
-            dc.AllCaloriesByDay = calendar.FirstOrDefault()!.User!.Info!.CaloriesCountByDay;
 
-            foreach(var c in calendar)
+            dc.AllCaloriesByDay = (int)_context.AdditionalInfo.FirstOrDefault(x => x.Id == dto.UserId).CaloriesCountByDay;
+
+            try
             {
-                dc.ProteinsCount += c.Product.ProteinsCount * (c.ProductCount / 100);
-                dc.FatsCount += c.Product.FatsCount *  (c.ProductCount / 100);
-                dc.CarbsCount += c.Product.CarbsCount *  (c.ProductCount / 100);
-                dc.CaloriesCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                foreach (var c in calendar)
+                {
+                    dc.ProteinsCount += c.Product.ProteinsCount * (c.ProductCount / 100);
+                    dc.FatsCount += c.Product.FatsCount * (c.ProductCount / 100);
+                    dc.CarbsCount += c.Product.CarbsCount * (c.ProductCount / 100);
+                    dc.CaloriesCount += c.Product.CaloriesCount * (c.ProductCount / 100);
 
-                if(c.MealTypeId == 1) {
-                    dc.BreakfastCount += c.Product.CaloriesCount * (c.ProductCount / 100);
-                }
+                    if (c.MealTypeId == 1)
+                    {
+                        dc.BreakfastCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                    }
 
-                if(c.MealTypeId == 2) {
-                    dc.LunchCount += c.Product.CaloriesCount* (c.ProductCount / 100);
-                }
+                    if (c.MealTypeId == 2)
+                    {
+                        dc.LunchCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                    }
 
-                if(c.MealTypeId == 3) {
-                    dc.DinnerCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                    if (c.MealTypeId == 3)
+                    {
+                        dc.DinnerCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                    }
+
+                    if (c.MealTypeId == 4)
+                    {
+                        dc.SnackCount += c.Product.CaloriesCount * (c.ProductCount / 100);
+                    }
+
                 }
+            }
+            catch(Exception ex)
+            {
 
             }
-
             return dc;
+        }
+
+        public async Task CreateSpecialUserData(SpecialInfoDto dto, CancellationToken token)
+        {
+            var info = _context.AdditionalInfo.FirstOrDefault(x => x.Id == dto.Id);
+
+            if (info == null) throw new Exception("Info is null");
+
+            var age = DateTime.Today.Year - info.BirthDay.Year; 
+
+            if (dto.Sex == "Мужской")
+                info.CaloriesCountByDay = Convert.ToInt32((10 * dto.Weight + 6.25 * dto.Height - 5 * age + 5) * 1.55);
+            else
+                info.CaloriesCountByDay = Convert.ToInt32((10 * dto.Weight + 6.25 * dto.Height - 5 * age - 161) * 1.55);
+
+            info.Weight = dto.Weight;
+            info.WorkType = dto.WorkType;
+            info.DesiredWeight = dto.DesiredWeight;
+            info.Height = dto.Height;
+            info.Sex = dto.Sex;
+
+            _context.AdditionalInfo.Update(info);
+            await _context.SaveChangesAsync(token);
+        }
+
+        public async Task<SpecialInfoDto> GetSpecialInfo(int userId, CancellationToken token)
+        {
+            var info = _context.AdditionalInfo.FirstOrDefault(x => x.Id == userId);
+
+            if (info == null) throw new Exception("Info is null");
+
+            return _mapper.Map<AdditionalInfo, SpecialInfoDto>(info);
         }
     }
 }

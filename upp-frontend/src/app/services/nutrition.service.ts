@@ -7,13 +7,14 @@ import { Product } from "../models/Product";
 import { PaginatedList } from "../models/PaginatedList";
 import { Calories } from "../models/Calories";
 import { CaloriesByDay } from "../models/CaloriesByDay";
+import { SpecialData } from "../models/SpecialData";
 
 @Injectable({
     providedIn: 'root',
   })
 export class NutritionService {
-    refProduct: string = "http://localhost:5214/api/Product";
-    refCalendar: string = "http://localhost:5214/api/Calendar";
+    refProduct: string = "https://localhost:7171/api/Product";
+    refCalendar: string = "https://localhost:7171/api/Calendar";
 
     constructor(private httpClient: HttpClient, private router: Router) {
     }
@@ -28,5 +29,13 @@ export class NutritionService {
 
     public getCalories(calories: Calories) {
       return this.httpClient.post<CaloriesByDay>(this.refCalendar + "/count-day", calories);
+    }
+
+    public createSpecialInfo(model: SpecialData) {
+      return this.httpClient.put(this.refCalendar + "/special-info", model);
+    }
+
+    public getSpecialInfo(userId: number) {
+      return this.httpClient.get<SpecialData>(this.refCalendar + "/special-info?userId=" + userId);
     }
 }

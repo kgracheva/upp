@@ -1,0 +1,24 @@
+<div class="lk-wrap">
+    <div class="menu-wrap">
+        <ul>
+            <li>Данные</li>
+            <li>Настройки</li>
+            <li>Безопасность</li>
+            <li>Тех поддержка</li>
+            <li>Заявки</li>
+        </ul>
+    </div>
+    <div class="info-wrap">
+        <form *ngIf="!isLoading">
+            <input type="text"  name="lastname" placeholder="Фамилия"  [(ngModel)]="specialData.lastname" />
+            <input type="text" name="name" placeholder="Имя" [(ngModel)]="specialData.name" />
+            <input type="text" name="weight" placeholder="Вес" [(ngModel)]="specialData.weight" />
+            <input type="text" name="desiredWeight" placeholder="Желаемый вес" [(ngModel)]="specialData.desiredWeight" />
+            <select name="goal" id="goal-sel">
+                <option value="1">Похудение</option>
+                <option value="2">Поддержание веса</option>
+                <option value="3">Набор веса</option>
+            </select>
+        </form>
+    </div>
+</div>

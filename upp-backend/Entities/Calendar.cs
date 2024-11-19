@@ -11,5 +11,6 @@ namespace upp.Entities
         public int ProductCount { get; set; }
         public int MealTypeId { get; set; }
         public MealType? MealType { get; set; }
+        public int Weight { get; set; }
     }
 }

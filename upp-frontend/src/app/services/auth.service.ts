@@ -14,7 +14,7 @@ import { UserLoginDto } from '../models/UserLoginDto';
 export class AuthService {
   // private readonly STORAGE_KEY = 'user';
   private _user: User | null = null;
-  ref: string = "http://localhost:5214/api/Auth";
+  ref: string = "https://localhost:7171/api/Auth";
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }

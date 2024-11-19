@@ -7,9 +7,11 @@ import { SignComponent } from './components/sign/sign.component';
 import { HeaderComponent } from './components/header/header.component';
 import { JournalComponent } from './components/journal/journal.component';
 import { NutritionComponent } from './components/nutrition/nutrition.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { LkComponent } from './components/lk/lk.component';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent, 
     SignComponent,
     JournalComponent,
-    NutritionComponent
+    NutritionComponent,
+    LkComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

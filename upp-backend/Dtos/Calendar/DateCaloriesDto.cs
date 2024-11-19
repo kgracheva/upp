@@ -10,5 +10,6 @@
         public int BreakfastCount { get; set; }
         public int LunchCount { get; set; }
         public int DinnerCount { get; set; }
+        public int SnackCount { get; set; }
     }
 }

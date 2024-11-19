@@ -1,0 +1,47 @@
+
+<div class="form-wrap">
+    <form action="">
+        <div class="question">
+            <h5>Ваш пол?</h5>
+
+            <div>
+                <input type="radio" name="sex" id="sex-f" value="Женский" [(ngModel)]="specialData.sex" />
+                <label for="sex-f">Женский</label>
+                <input type="radio" id="sex-m" name="sex" value="Мужской"  [(ngModel)]="specialData.sex" />
+                <label for="sex-m">Мужской</label>
+            </div>
+            
+        </div>
+        <div class="question">
+            <h5>Ваш вес?</h5>
+            <input type="number" name="weight" minlength="10" maxlength="300"  [(ngModel)]="specialData.weight" />
+        </div>
+    
+        <div class="question">
+            <h5>Ваш желаемый вес?</h5>
+            <input type="number" name="desiredWeight" minlength="10" maxlength="300" [(ngModel)]="specialData.desiredWeight" />
+        </div>
+    
+        <div class="question">
+            <h5>Ваш рост?</h5>
+            <input type="number" name="height" minlength="10" maxlength="300" [(ngModel)]="specialData.height" />
+        </div>
+    
+        <div class="question">
+            <h5>Ваша дата рождения?</h5>
+            <input type="date" name="birthDay" [(ngModel)]="specialData.birthDay" />
+        </div>
+    
+        <div class="question">
+            <h5>Цель использования?</h5>
+            <select name="goal" id="goal-sel" [(ngModel)]="specialData.workType" >
+                <option value="1">Похудение</option>
+                <option value="2">Поддержание веса</option>
+                <option value="3">Набор веса</option>
+            </select>
+        </div>
+
+        <button (click)="saveSpecialData()">Сохранить</button>
+    </form>
+    
+</div>

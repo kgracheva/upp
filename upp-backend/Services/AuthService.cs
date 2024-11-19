@@ -32,28 +32,29 @@ namespace Services
 
             if (await _userManager.CheckPasswordAsync(user, dto.Password))
             {
-                var returnDto = new AuthUserDto();
-
-                var authClaims = await GenerateAuthClaims(user);
-
-                var jwtToken = GetJwtToken(authClaims);
-
-<<<<<<< Updated upstream
-                var authDto = new AuthUserDto() {
-                    Key = jwtToken,
-                    UserId = user.Id, 
-                    Roles = (List<string>)await _userManager.GetRolesAsync(user)
-                };
-
-                return authDto;
-=======
-                returnDto.Key = jwtToken;
->>>>>>> Stashed changes
+                return await GiveAccess(user);
             }
             else
             {
                 throw new Exception("Password invalid");
             }
+        }
+
+        public async Task<AuthUserDto> GiveAccess(User user)
+        {
+            var authClaims = await GenerateAuthClaims(user);
+
+            var jwtToken = GetJwtToken(authClaims);
+
+
+            var authDto = new AuthUserDto()
+            {
+                Key = jwtToken,
+                UserId = user.Id,
+                Roles = (List<string>)await _userManager.GetRolesAsync(user)
+            };
+
+            return authDto;
         }
 
 
@@ -129,26 +130,26 @@ namespace Services
             return authClaims;
         }
 
-        public async Task<int> CreatePsychologist(AddUserDto dto)
-        {
-            var psy = await _userManager.FindByNameAsync(dto.Email);
+        //public async Task<int> CreatePsychologist(AddUserDto dto)
+        //{
+        //    var psy = await _userManager.FindByNameAsync(dto.Email);
 
-            if (psy != null)
-            {
-                throw new Exception("User already exists!");
-            }
+        //    if (psy != null)
+        //    {
+        //        throw new Exception("User already exists!");
+        //    }
 
-            try
-            {
-                return await CreateUser(dto, Roles.Psychologist);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //    try
+        //    {
+        //        return await CreateUser(dto, Roles.Psychologist);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
-        public async Task<int> CreateClient(AddUserDto dto)
+        public async Task<AuthUserDto> CreateClient(AddUserDto dto)
         {
             var client = await _userManager.FindByNameAsync(dto.Email);
 
@@ -167,7 +168,7 @@ namespace Services
             }
         }
 
-        public async Task<int> CreateUser(AddUserDto dto, string role)
+        public async Task<AuthUserDto> CreateUser(AddUserDto dto, string role)
         {
             var user = new User() { Email = dto.Email, UserName = dto.Email };
 
@@ -177,16 +178,16 @@ namespace Services
             {
                 await _userManager.AddToRoleAsync(user, role); //add role
 
-                if (dto.Name != null)
+                if (dto.Name != "")
                 {
-                    var additionalInfo = new AdditionalInfo() { Id = user.Id, Name = dto.Name, Lastname = dto.Lastname }; //add fio
+                    var additionalInfo = new AdditionalInfo() { Id = user.Id, Name = dto.Name, Lastname = dto.Lastname, BirthDay = DateTime.Now }; //add fio
 
                     _context.AdditionalInfo.Add(additionalInfo);
 
                     await _context.SaveChangesAsync();
                 }
 
-                return user.Id;
+                return await GiveAccess(user);
             }
             else
             {

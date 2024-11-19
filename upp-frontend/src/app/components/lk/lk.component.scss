@@ -1,0 +1,24 @@
+.lk-wrap {
+    display: flex;
+    padding: 20px 300px;
+}
+
+.menu-wrap {
+    width: 20%;
+    border-right: 1px solid #a7a7a7;
+    ul {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        gap: 25px;
+
+        li {
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+}
+
+.info-wrap {
+    width: 100%;
+}

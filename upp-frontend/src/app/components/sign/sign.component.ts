@@ -28,7 +28,8 @@ export class SignComponent {
 
   public signUp() { 
     this.authService.register(this.userModel).subscribe(x => {
-      this.router.navigateByUrl('/login');
+      localStorage.setItem('user', JSON.stringify(x));
+      this.router.navigateByUrl('/form');
     });
   }
 

@@ -57,5 +57,20 @@ namespace upp.Controllers
         {
             return Ok(await _calendarService.CountDayCalories(dto, token));
         }
+
+        [HttpPut]
+        [Route("special-info")]
+        public async Task<ActionResult> CreateSpecialUserData([FromBody] SpecialInfoDto dto, CancellationToken token)
+        {
+            await _calendarService.CreateSpecialUserData(dto, token);
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("special-info")]
+        public async Task<ActionResult<SpecialInfoDto>> GetSpecialInfo([FromQuery] int userId, CancellationToken token)
+        {
+            return Ok(await _calendarService.GetSpecialInfo(userId, token));
+        }
     }
 }

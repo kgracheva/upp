@@ -4,6 +4,8 @@ import { SignComponent } from './components/sign/sign.component';
 import { JournalComponent } from './components/journal/journal.component';
 import { AuthGuard } from './services/auth.guard';
 import { NutritionComponent } from './components/nutrition/nutrition.component';
+import { LkComponent } from './components/lk/lk.component';
+import { FormComponent } from './components/form/form.component';
 
 const routes: Routes = [ 
   { 
@@ -17,7 +19,24 @@ const routes: Routes = [
         roles: ['Client']
       },
   },
-  { path: "nutrition", component: NutritionComponent},];
+  { path: "nutrition", component: NutritionComponent},
+  {
+    path: "lk",
+    component: LkComponent, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client']
+    },
+  },
+  {
+    path: "form",
+    component: FormComponent, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client']
+    },
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

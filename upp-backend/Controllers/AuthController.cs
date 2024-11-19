@@ -18,13 +18,13 @@ namespace upp.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<AuthUserDto>> Login(UserLoginDto dto, CancellationToken token)
+        public async Task<ActionResult<AuthUserDto>> Login([FromBody] UserLoginDto dto, CancellationToken token)
         {
             return Ok(await _authService.Login(dto, token));
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> CreateAdmin(AddUserDto dto, CancellationToken token)
+        public async Task<ActionResult<AuthUserDto>> CreateAdmin([FromBody] AddUserDto dto, CancellationToken token)
         {
             return Ok(await _authService.CreateClient(dto));
         }

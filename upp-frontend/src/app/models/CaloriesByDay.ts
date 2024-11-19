@@ -7,4 +7,5 @@ export interface CaloriesByDay {
     breakfastCount: number;
     lunchCount: number;
     dinnerCount: number;
+    snackCount: number;
 }
