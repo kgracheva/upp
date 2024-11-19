@@ -1,7 +1,8 @@
+<h2>Таблица ваших заявок</h2>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> Тип заявки </th>
-      <td mat-cell *matCellDef="let element"> {{getWorkType(element.type)}} </td>
+      <td mat-cell *matCellDef="let element"> {{getWorkType(element.requestType)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
@@ -17,7 +18,14 @@
 
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Дата подачи </th>
-      <td mat-cell *matCellDef="let element"> {{element.created}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created|date:"YYYY-MM-dd hh:mm" }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Действия </th>
+      <td mat-cell *matCellDef="let element"> 
+        <a href="{{'/request?id=' + element.id}}">Просмотреть</a>
+      </td>
     </ng-container>
  
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

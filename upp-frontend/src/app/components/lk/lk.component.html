@@ -5,20 +5,39 @@
             <li>Настройки</li>
             <li>Безопасность</li>
             <li>Тех поддержка</li>
-            <li>Заявки</li>
+            <li><a href="/requests">Заявки</a></li>
         </ul>
     </div>
     <div class="info-wrap">
         <form *ngIf="!isLoading">
-            <input type="text"  name="lastname" placeholder="Фамилия"  disabled [(ngModel)]="specialData.lastname" />
-            <input type="text" name="name" placeholder="Имя" disabled [(ngModel)]="specialData.name" />
-            <input type="text" name="weight" placeholder="Вес" disabled [(ngModel)]="specialData.weight" />
-            <input type="text" name="desiredWeight" placeholder="Желаемый вес" disabled [(ngModel)]="specialData.desiredWeight" />
-            <select name="goal" id="goal-sel">
-                <option value="1">Похудение</option>
-                <option value="2">Поддержание веса</option>
-                <option value="3">Набор веса</option>
-            </select>
+            <div class="item">
+                <label>Имя:</label>
+                <input type="text"  name="lastname" placeholder="Фамилия"  disabled [(ngModel)]="specialData.lastname" />
+            </div>
+
+            <div class="item">
+                <label>Фамилия:</label>
+                <input type="text" name="name" placeholder="Имя" disabled [(ngModel)]="specialData.name" />
+            </div>
+            
+            <div class="item">
+                <label>Вес:</label>
+                <input type="text" name="weight" placeholder="Вес" disabled [(ngModel)]="specialData.weight" />
+            </div>
+
+            <div class="item">
+                <label>Желаемый вес:</label>
+                <input type="text" name="desiredWeight" placeholder="Желаемый вес" disabled [(ngModel)]="specialData.desiredWeight" />
+            </div>
+            
+            <div class="item">
+                <label>Цель:</label>
+                <select name="goal" disabled id="goal-sel">
+                    <option value="1">Похудение</option>
+                    <option value="2">Поддержание веса</option>
+                    <option value="3">Набор веса</option>
+                </select>
+            </div>
         </form>
     </div>
 </div>

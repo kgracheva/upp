@@ -18,17 +18,17 @@
         <div class="bgu-part">
             <span class="name">Углеводы</span>
                 <span class="chart"></span>
-            <span class="count">{{ caloriesByDay!.carbsCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.4 }} г</span>
+            <span class="count">{{ caloriesByDay!.carbsCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.1 ) }} г</span>
         </div>
         <div class="bgu-part">
             <span class="name">Белки</span>
             <span class="chart"></span>
-            <span class="count">{{ caloriesByDay!.proteinsCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.3 }} г</span>
+            <span class="count">{{ caloriesByDay!.proteinsCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.2 / 3)}} г</span>
         </div>
         <div class="bgu-part">
             <span class="name">Жиры</span>
             <span class="chart"></span>
-            <span class="count">{{ caloriesByDay!.fatsCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.3 }} г</span>
+            <span class="count">{{ caloriesByDay!.fatsCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.3 / 4) }} г</span>
         </div>
     </div>
 </div>
@@ -84,7 +84,7 @@
             </svg>
             <div class="nutrition-info">
                 <h3>Завтрак</h3>
-                <span>{{ caloriesByDay!.breakfastCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.25 }} ккал</span>
+                <span>{{ caloriesByDay!.breakfastCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.25) }} ккал</span>
             </div>
         </div>
         <button (click)="addProduct(1)">
@@ -104,7 +104,7 @@
             <img src="../../../assets/hot-soup.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Обед</h3>
-                <span>{{ caloriesByDay!.lunchCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.35 }} ккал</span>
+                <span>{{ caloriesByDay!.lunchCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.35) }} ккал</span>
             </div>
         </div>
         <button (click)="addProduct(2)">
@@ -124,7 +124,7 @@
             <img src="../../../assets/salad.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Ужин</h3>
-                <span>{{ caloriesByDay!.dinnerCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.25 }} ккал</span>
+                <span>{{ caloriesByDay!.dinnerCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.25) }} ккал</span>
             </div>
         </div>
         <button (click)="addProduct(1)">
@@ -144,7 +144,7 @@
             <img src="../../../assets/mandarin.png" alt="" class="emoji">
             <div class="nutrition-info">
                 <h3>Перекус</h3>
-                <span>{{ caloriesByDay!.snackCount }} / {{ caloriesByDay!.allCaloriesByDay * 0.15 }} ккал</span>
+                <span>{{ caloriesByDay!.snackCount }} / {{ getNumber(caloriesByDay!.allCaloriesByDay * 0.15) }} ккал</span>
             </div>
         </div>
         <button (click)="addProduct(4)">

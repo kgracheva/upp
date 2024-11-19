@@ -1,15 +1,15 @@
 <div class="block-wrap">
     <div class="block-header">
         <span class="block-id">Блок {{ id }}</span>
-        <button (click)="addSubheading()">
+        <button (click)="addSubheading()" *ngIf="!isDisabled">
             <span *ngIf="!isSubHead">Добавить подзаголовок</span>
             <span *ngIf="isSubHead">Убрать подзаголовок</span>
         </button>
     </div>
     
-    <input type="text" class="block-heading"  placeholder="Заголовок" [ngModel]="heading" (ngModelChange)="onHeadingChange($event)"/> <!-- заголовок -->
-    <input *ngIf="isSubHead" type="text" class="block-subheading" [ngModel]="subHeading"  (ngModelChange)="onSubheadingChange($event)" placeholder="Подзаголовок" /> <!-- подзаголовок -->
-    <textarea class="block-text" placeholder="Текст" [ngModel]="text"  (ngModelChange)="onTextChange($event)"></textarea> <!-- текст -->
+    <input type="text" class="block-heading" [disabled]="isDisabled" placeholder="Заголовок" [ngModel]="heading" (ngModelChange)="onHeadingChange($event)"/> <!-- заголовок -->
+    <input *ngIf="isSubHead" type="text" [disabled]="isDisabled" class="block-subheading" [ngModel]="subHeading"  (ngModelChange)="onSubheadingChange($event)" placeholder="Подзаголовок" /> <!-- подзаголовок -->
+    <textarea class="block-text" [disabled]="isDisabled"  placeholder="Текст" [ngModel]="text"  (ngModelChange)="onTextChange($event)"></textarea> <!-- текст -->
 </div>
 
 

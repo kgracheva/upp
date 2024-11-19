@@ -3,9 +3,12 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using upp.Dtos.Article;
+using upp.Dtos.Recipe;
 using upp.Dtos.Request;
+using upp.Dtos.Training;
 using upp.Entities;
 using upp.Mapper;
+using upp.Migrations;
 
 namespace upp.Services
 {
@@ -46,6 +49,7 @@ namespace upp.Services
                 {
                     var id = await _articleService.CreateArticle(dto.Article, token);
                     request.EntityId = id;
+                    request.RequestType = RequestType.Article;
                 }
                     
 
@@ -53,6 +57,7 @@ namespace upp.Services
                 {
                     var id = await _recipeService.CreateRecipe(dto.Recipe, token);
                     request.EntityId = id;
+                    request.RequestType = RequestType.Recipe;
                 }
                     
 
@@ -60,6 +65,7 @@ namespace upp.Services
                 {
                     var id = await _trainingService.CreateTraining(dto.Training, token);
                     request.EntityId = id;
+                    request.RequestType = RequestType.Training;
                 }
 
                 request.OperatorId = 1;
@@ -102,7 +108,8 @@ namespace upp.Services
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
                     OperatorId = x.OperatorId,
-                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
+                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name,
+                    Created = (DateTime)x.Created
                 });
             }
 
@@ -117,7 +124,8 @@ namespace upp.Services
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
                     OperatorId = x.OperatorId,
-                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
+                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name,
+                    Created = (DateTime)x.Created
                 });
             }
 
@@ -132,7 +140,8 @@ namespace upp.Services
                     StatusTypeId = x.StatusTypeId,
                     StatusTypeName = x.StatusType.Name,
                     OperatorId = x.OperatorId,
-                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name
+                    OperatorName = x.Operator.Info.Lastname + x.Operator.Info.Name,
+                    Created = (DateTime)x.Created
                 });
             }
 
@@ -153,7 +162,7 @@ namespace upp.Services
             return request.Id;
         }
 
-        public async Task<RequestDto> GetRequest(int id, CancellationToken token)
+        public async Task<CreateRequestDto> GetRequest(int id, CancellationToken token)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == id, token);
 
@@ -162,7 +171,25 @@ namespace upp.Services
                 throw new Exception("Request is null");
             }
 
-            return _mapper.Map<Request, RequestDto>(request);
+            var requestDto = new CreateRequestDto() {
+                Article = null,
+                Recipe = null,
+                Training = null
+            };
+
+            if(request.RequestType == RequestType.Article) {
+                requestDto.Article = _mapper.Map<Article, ArticleDto>(_context.Articles.Include(x => x.ArticleBlocks).ThenInclude(x => x.Block).FirstOrDefault(x => x.Id == request.EntityId));
+            }
+
+            if(request.RequestType == RequestType.Recipe) {
+                requestDto.Recipe = _mapper.Map<Recipe, RecipeDto>(_context.Recipes.Include(x => x.RecipeBlocks).ThenInclude(x => x.Block).FirstOrDefault(x => x.Id == request.EntityId));
+            }
+
+            if(request.RequestType == RequestType.Training) {
+                requestDto.Training = _mapper.Map<Training, TrainingDto>(_context.Trainings.FirstOrDefault(x => x.Id == request.EntityId));
+            }
+
+            return requestDto;
         }
 
         public async Task Delete(int id, CancellationToken token)

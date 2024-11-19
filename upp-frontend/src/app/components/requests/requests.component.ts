@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FindRequestsDto } from '../../models/FindRequestsDto';
+import { RequestDto } from '../../models/Request';
 
 @Component({
   selector: 'app-requests',
@@ -8,8 +9,8 @@ import { FindRequestsDto } from '../../models/FindRequestsDto';
   styleUrl: './requests.component.scss'
 })
 export class RequestsComponent {
-  displayedColumns: string[] = ['type', 'name', 'status', 'date'];
-  dataSource: Request[] = [];
+  displayedColumns: string[] = ['type', 'name', 'status', 'date', 'actions'];
+  dataSource: RequestDto[] = [];
 
 
 
@@ -27,10 +28,11 @@ export class RequestsComponent {
   }
 
   public getRequests() {
-    this.requestService.getRequests(this.findRequests).subscribe(r => this.dataSource = r.items);
+    this.requestService.getRequests(this.findRequests).subscribe(r => { this.dataSource = r.items; console.log(this.dataSource) });
   }
 
   public getWorkType(num: string) {
+    console.log(num);
     if(num == '1') {
       return "Статья";
     }

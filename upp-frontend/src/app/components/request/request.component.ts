@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BlockDto } from '../../models/BlockDto';
 import { RequestService } from '../../services/request.service';
 import { ArticleDto } from '../../models/ArticleDto';
 import { CreateRequestDto } from '../../models/CreateRequestDto';
 import { RecipeDto } from '../../models/RecipeDto';
 import { TrainingDto } from '../../models/TrainingDto';
+import { RequestDto } from '../../models/Request';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-request',
@@ -16,9 +18,48 @@ export class RequestComponent {
   isArticle: boolean = false; 
   isRecipe: boolean = false; 
   isTraining: boolean = false; 
+  isEmpty: boolean = true;
+  constructor(private requestService: RequestService, private route:ActivatedRoute) {
+   
+   this.route.queryParams.subscribe(queryParam => {
+      if(queryParam['id']) { this.isEmpty = false; console.log('asasa'); this.getRequest(queryParam['id'])}
+      else {
+        this.addNewBlock();
+      }
+   });
+  }
 
-  constructor(private requestService: RequestService) {
-   this.addNewBlock();
+  getRequest(id: number) {
+    this.requestService.getRequest(id).subscribe(x => {
+      console.log(x);
+      if(x.article) {
+        this.isArticle = true;
+        this.articleDto.name = x.article.name;
+        this.articleDto.id = x.article.id;
+        this.articleDto.creatorId = x.article.creatorId;
+        this.articleDto.statusTypeId = x.article.statusTypeId;
+        this.requestBlocks = x.article.blocks;
+        console.log(this.articleDto);
+      }
+
+      if(x.recipe) {
+        this.isRecipe = true;
+        this.recipeDto.name = x.recipe.name;
+        this.recipeDto.id = x.recipe.id;
+        this.recipeDto.creatorId = x.recipe.creatorId;
+        this.recipeDto.statusTypeId = x.recipe.statusTypeId;
+        this.requestBlocks = x.recipe.blocks!;
+        this.recipeDto.caloriesCount = x.recipe.caloriesCount;
+        this.recipeDto.fatsCount = x.recipe.fatsCount;
+        this.recipeDto.carbsCount = x.recipe.carbsCount;
+        this.recipeDto.proteinsCount = x.recipe.proteinsCount;
+      }
+
+      if(x.training) {
+        this.isTraining = true;
+        this.trainingDto = x.training;
+      }
+    });
   }
 
   onChange(target: any) {

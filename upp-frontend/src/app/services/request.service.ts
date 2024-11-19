@@ -10,6 +10,7 @@ import { CaloriesByDay } from "../models/CaloriesByDay";
 import { SpecialData } from "../models/SpecialData";
 import { FindRequestsDto } from "../models/FindRequestsDto";
 import { CreateRequestDto } from "../models/CreateRequestDto";
+import { RequestDto } from "../models/Request";
 
 @Injectable({
     providedIn: 'root',
@@ -21,12 +22,16 @@ export class RequestService {
     }
 
     public getRequests(dto: FindRequestsDto) {
-        return this.httpClient.get<PaginatedList<Request>>(this.refRequest + "/?creatorId=" + dto.creatorId 
+        return this.httpClient.get<PaginatedList<RequestDto>>(this.refRequest + "/?creatorId=" + dto.creatorId 
             + "&requestType="+dto.requestType);
     }
 
     public createRequest(reqDto: CreateRequestDto) {
         return this.httpClient.post(this.refRequest, reqDto);
+    }
+
+    public getRequest(id: number) {
+        return this.httpClient.get<CreateRequestDto>(this.refRequest + "/" + id);
     }
   
 }

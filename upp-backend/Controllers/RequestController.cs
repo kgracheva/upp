@@ -38,7 +38,7 @@ namespace upp.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<RequestDto>> GetRequest(int id, CancellationToken token)
+        public async Task<ActionResult<CreateRequestDto>> GetRequest(int id, CancellationToken token)
         {
             return Ok(await _requestService.GetRequest(id, token));
         }

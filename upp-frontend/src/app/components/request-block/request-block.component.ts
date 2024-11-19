@@ -12,6 +12,7 @@ export class RequestBlockComponent {
   @Input() subHeading: string = "";
   @Input() text: string = "";
   @Input() id: number = 0;
+  @Input() isDisabled: boolean = false;
 
   public addSubheading() {
     if(this.isSubHead) {

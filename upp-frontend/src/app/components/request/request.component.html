@@ -2,7 +2,7 @@
     <h2>
         Страница заявки
     </h2>
-    <select name="type-entity" id="type-entity" (change)="onChange($event)" >
+    <select name="type-entity" id="type-entity" *ngIf="isEmpty" (change)="onChange($event)" >
         <option disabled selected value> -- Выберите тип заявки -- </option>
         <option value="1">Статья</option>
         <option value="2">Рецепт</option>
@@ -15,31 +15,31 @@
     <div class="entity-header-wrap">
         <div class="entity-header">
             <label for="entity-heading"> Название </label>
-            <input *ngIf="isArticle" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="articleDto.name"/>
-            <input *ngIf="isRecipe" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="recipeDto.name"/>
-            <input *ngIf="isTraining" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="trainingDto.name"/>
+            <input *ngIf="isArticle" [disabled]="!isEmpty" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="articleDto.name"/>
+            <input *ngIf="isRecipe" [disabled]="!isEmpty" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="recipeDto.name"/>
+            <input *ngIf="isTraining" [disabled]="!isEmpty" name="entity-heading" id="entity-heading" type="text" placeholder="Укажите название" [(ngModel)]="trainingDto.name"/>
         </div>
-        <button (click)="addNewBlock()" *ngIf="!isTraining">Добавить новый блок</button>
+        <button (click)="addNewBlock()" *ngIf="isEmpty && !isTraining">Добавить новый блок</button>
     </div>
 
     <div class="additional-inputs" *ngIf="isRecipe">
         <span>КБЖУ (на 100 грамм)</span>
         <div class="additional-item">
             <label> Калорийность </label>
-            <input type="text" name="parameter-one" placeholder="Калорийность" [(ngModel)]="recipeDto.caloriesCount" />
+            <input type="text" [disabled]="!isEmpty" name="parameter-one" placeholder="Калорийность" [(ngModel)]="recipeDto.caloriesCount" />
         </div>
        
         <div class="additional-item">
             <label> Белки </label>
-            <input type="text" name="parameter-one" placeholder="Количество белков" [(ngModel)]="recipeDto.proteinsCount" />
+            <input type="text" [disabled]="!isEmpty" name="parameter-one" placeholder="Количество белков" [(ngModel)]="recipeDto.proteinsCount" />
         </div>
         <div class="additional-item">
             <label > Углеводы </label>
-            <input type="text" name="parameter-one" placeholder="Количество углеводов" [(ngModel)]="recipeDto.carbsCount" />
+            <input type="text" [disabled]="!isEmpty" name="parameter-one" placeholder="Количество углеводов" [(ngModel)]="recipeDto.carbsCount" />
         </div>
         <div class="additional-item">
             <label> Жиры </label>
-            <input type="text" name="parameter-one" placeholder="Количество жиров" [(ngModel)]="recipeDto.fatsCount" />
+            <input type="text" [disabled]="!isEmpty" name="parameter-one" placeholder="Количество жиров" [(ngModel)]="recipeDto.fatsCount" />
         </div>
     </div>
     
@@ -49,6 +49,7 @@
         [(heading)]="rb.heading" 
         [(subHeading)]="rb.subheading" 
         [(text)]="rb.text" 
+        [isDisabled]="!isEmpty"
         ></app-request-block>
     </div>
 
@@ -57,5 +58,5 @@
         <input type="text" placeholder="Ссылка на видео" [(ngModel)]="trainingDto.videoRef"/>
     </div>
     
-    <button (click)="createRequest()">Отправить на модерацию</button>
+    <button (click)="createRequest()" *ngIf="isEmpty">Отправить на модерацию</button>
 </div>

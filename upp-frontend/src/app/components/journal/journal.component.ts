@@ -31,4 +31,8 @@ export class JournalComponent {
     console.log("aaa");
     this.nutritionService.getCalories(this.calories).subscribe(x => { this.caloriesByDay = x; console.log(x); this.isLoading = true });
   }
+
+  getNumber(value: any) {
+    return Math.floor(value);
+  }
 }
