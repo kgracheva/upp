@@ -10,7 +10,7 @@ namespace upp.Mapper
         public ArticleMapper()
         {
             CreateMap<Article, ArticleDto>()
-                .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(x => x.Creator.Info.Lastname + x.Creator.Info.Name))
+                .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(x => x.Creator.Info.Lastname + " " + x.Creator.Info.Name))
                 .ForMember(dest => dest.Blocks, opt => opt.MapFrom(x => x.ArticleBlocks.Select(ab => ab.Block)));
 
 
