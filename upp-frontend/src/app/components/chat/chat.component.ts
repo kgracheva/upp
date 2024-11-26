@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatDto } from '../../models/ChatDto';
 import { User } from '../../models/User';
 import { ChatService } from '../../services/chat.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, AuthUserDto } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { from } from 'rxjs';
 import { MessageDto } from '../../models/MessageDto';
@@ -15,7 +15,7 @@ import { CreateSimpleChatDto } from '../../models/CreateSimpleChatDto';
 })
 export class ChatComponent implements OnInit {
   public chats: ChatDto[] = [];
-  public currentUser: User | null = null;
+  public currentUser: AuthUserDto | null = null;
   public currentOpenChat: ChatDto | null = null;
   public openChatId: number | null = null;
 
@@ -29,7 +29,6 @@ export class ChatComponent implements OnInit {
     });
 
     from(this.chatService.startConnection()).subscribe((_) => {
-      console.log("llglgl");
       this.currentUser = this.authService.user();
       this.loadChats();
     });
@@ -37,17 +36,13 @@ export class ChatComponent implements OnInit {
   }
 
   public openChat(chat: ChatDto) {
-    console.log("chat");
-    console.log(chat);
     this.currentOpenChat = chat;
   }
 
   public getUser(chat: ChatDto) {
-    console.log(chat);
     const last = chat.lastMessage?.userId;
 
-    const a = chat.users.find(x => x.userId == last) || chat.users.find(x => x.userId != +this.currentUser!.id);
-    console.log(a);
+    const a = chat.users.find(x => x.userId == last) || chat.users.find(x => x.userId != +this.currentUser!.userId);
     return a;
   }
 
@@ -67,9 +62,7 @@ export class ChatComponent implements OnInit {
   }
 
   private loadChats() {
-    console.log("ALDLASD");
     this.chatService.getChats().subscribe(x => {
-      console.log(x);
       this.chats = x;
       if (this.openChatId !== null && this.openChatId != undefined) {
         var chat = this.chats.find(x => x.id == this.openChatId);
@@ -99,6 +92,6 @@ export class ChatComponent implements OnInit {
     let dto: CreateSimpleChatDto = {
       userIds: [1, 7]
     }
-    this.chatService.createChat(dto).subscribe(x => console.log(x));
+    this.chatService.createChat(dto).subscribe(x => {});
   }
 }

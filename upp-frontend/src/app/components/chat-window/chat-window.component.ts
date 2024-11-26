@@ -14,7 +14,7 @@ import {
 import { ChatDto } from '../../models/ChatDto';
 import { User } from '../../models/User';
 import { MessageDto } from '../../models/MessageDto';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, AuthUserDto } from '../../services/auth.service';
 import { ChatService } from '../../services/chat.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class ChatWindowComponent implements OnInit, AfterViewChecked {
   private _chat: ChatDto | null = null;
-  public currentUser!: User;
+  public currentUser!: AuthUserDto;
   public needToScroll = true;
   public isLoading = true;
   public isAccepted = false;
@@ -37,7 +37,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   @Input()
   set chat(value: ChatDto) {
-    
+
     this._chat = value;
     this.loadMessages();
   }
@@ -52,20 +52,18 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     private authService: AuthService,
     private chatService: ChatService,
   ) {
-    this.currentUser = this.authService.user();
+
   }
 
   getName() {
-    console.log("current" + this.currentUser.id);
-    var user = this._chat?.users.find((x) => x.userId != this.currentUser.id);
-    console.log(this._chat?.users);
+    var user = this._chat?.users.find((x) => x.userId != this.currentUser.userId);
     return user!.name;
   }
 
   ngOnInit() {
-    
+    this.currentUser = this.authService.user();
     this.chatService.messageReceived.subscribe((message) => {
-      
+
 
       if (!message) return;
 
@@ -75,22 +73,21 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
         this._chat!.unreadCount = 0;
         this.chatChange.emit(this.chat!);
 
-        console.log(message);
       }
     });
 
     this.chatService.chatRead.subscribe((chatId) => {
       if (this.chat!.id == chatId) {
         this.messages
-          .filter((x) => x.userId == +this.currentUser.id && x.isRead == false)
+          .filter((x) => x.userId == +this.currentUser.userId && x.isRead == false)
           .forEach((x) => (x.isRead = true));
       }
     });
     this.isLoading = false;
   }
 
-  ngAfterViewChecked(): void {    
-    
+  ngAfterViewChecked(): void {
+
     this.scrollToBottom();
   }
 
@@ -127,7 +124,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
       chatId: this.chat!.id,
       isRead: false,
       text: this.currentText,
-      userId: +this.currentUser.id,
+      userId: +this.currentUser.userId,
       created: new Date(),
       id: 0
     };

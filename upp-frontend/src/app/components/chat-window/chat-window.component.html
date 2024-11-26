@@ -25,14 +25,14 @@
             </div> -->
         </div>
 
-     
+
 
         <ul class="list-unstyled"
             style="overflow-y: scroll"
             #chatWindow
             (resize)="scrollToBottom()">
             <ng-container *ngFor="let message of messages">
-                <li *ngIf="currentUser.id != message.userId"
+                <li *ngIf="currentUser.userId != message.userId"
                     class="d-flex flex-column">
                     <div class="d-flex align-items-center">
                         <!-- <img [src]="'/api/file/'+getUser(message.userId).photo"
@@ -55,7 +55,7 @@
                     </p>
                 </li>
 
-                <li *ngIf="currentUser.id == message.userId"
+                <li *ngIf="currentUser.userId == message.userId"
                     class="d-flex flex-column align-items-end">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="blue-circle me-2" *ngIf="!message.isRead"></div>

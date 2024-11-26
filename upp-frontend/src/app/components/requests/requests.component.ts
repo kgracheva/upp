@@ -23,9 +23,9 @@ export class RequestsComponent {
     size: 0,
     date: null
   };
- 
+
   constructor(private requestService: RequestService, private userService: AuthService) {
-    this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true; 
+    this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true;
     this.getRequests();
   }
 
@@ -33,24 +33,23 @@ export class RequestsComponent {
     if(!this.isAdmin) {
       this.findRequests.creatorId = JSON.parse(localStorage.getItem('user')!).userId;
     }
-    
-    this.requestService.getRequests(this.findRequests).subscribe(r => { this.dataSource = r.items; console.log(this.dataSource) });
+
+    this.requestService.getRequests(this.findRequests).subscribe(r => { this.dataSource = r.items; });
   }
 
   public getWorkType(num: string) {
-    console.log(num);
     if(num == '0') {
       return "Статья";
     }
-    
+
     if(num == '1') {
       return "Рецепт";
     }
 
     if(num == '2') {
-      return "Тренировка"; 
+      return "Тренировка";
     }
 
-    return "Ошибка"; 
+    return "Ошибка";
   }
 }

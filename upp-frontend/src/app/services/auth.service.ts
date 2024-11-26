@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/User';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { UserLoginDto } from '../models/UserLoginDto';
 
 
@@ -13,13 +13,15 @@ import { UserLoginDto } from '../models/UserLoginDto';
 })
 export class AuthService {
   // private readonly STORAGE_KEY = 'user';
-  private _user: User | null = null;
+  private _user: AuthUserDto | null = null;
   ref: string = "https://localhost:7171/api/Auth";
+  private httpClient: HttpClient;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor( handler: HttpBackend, private router: Router) {
+    this.httpClient = new HttpClient(handler);
   }
 
-  
+
   public register(model: User) {
     return this.httpClient.post(this.ref, model);
   }
@@ -29,7 +31,7 @@ export class AuthService {
   }
 
 
- 
+
   // public loginVk(vkId: number, returnUrl: string = '/') {
   //   return this.authClient.authVk(new VkLoginDto({ vkId: vkId })).pipe(
   //     tap(async (response) => {
@@ -97,7 +99,6 @@ export class AuthService {
   // }
 
   public getToken(): string | null {
-    console.log(JSON.parse(localStorage.getItem('user')!).key);
     return JSON.parse(localStorage.getItem('user')!).key;
   }
 
@@ -105,7 +106,7 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')!).roles;
   }
 
-  public user(): User {
+  public user(): AuthUserDto {
     if (this._user) {
       return this._user;
     }
@@ -121,4 +122,11 @@ export class AuthService {
   //   this.router.navigateByUrl(returnUrl);
   // }
 
+
+}
+
+export interface AuthUserDto {
+  key: string;
+  userId: number;
+  roles: string[];
 }

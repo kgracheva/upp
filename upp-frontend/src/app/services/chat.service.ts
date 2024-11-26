@@ -19,10 +19,10 @@ export class ChatService {
   constructor(private authService: AuthService, private httpClient: HttpClient) {}
 
   messageReceived: BehaviorSubject<MessageDto> =
-    new BehaviorSubject<MessageDto>({id: 0,  text: "", 
-        userId: 0, 
-        isRead: false, 
-        chatId: 0, 
+    new BehaviorSubject<MessageDto>({id: 0,  text: "",
+        userId: 0,
+        isRead: false,
+        chatId: 0,
         created: new Date()
     });
 
@@ -44,7 +44,7 @@ export class ChatService {
     this.addRecieveListener();
     return this.hubConnection
       .start()
-      .then(() => console.log('Connection started'))
+      .then(() => {console.log('Connection started')})
       .catch((err) => console.log('Error while starting connection: ' + err));
   }
 
@@ -77,11 +77,10 @@ export class ChatService {
   }
 
   getChats() {
-    console.log("llglgl");
     return this.httpClient.get<ChatDto[]>(this.refChat);
   }
 
-  
+
 
   createChat(dto: CreateSimpleChatDto) {
     return this.httpClient.post(this.refChat + "/simple", dto);

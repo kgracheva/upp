@@ -12,7 +12,7 @@ import { Calories } from '../../models/Calories';
   styleUrl: './nutrition.component.scss'
 })
 export class NutritionComponent {
-  public productsList: Product[] = []; 
+  public productsList: Product[] = [];
 
   calendar: Calendar = {
     id: 0,
@@ -22,10 +22,10 @@ export class NutritionComponent {
     mealTypeId: 0
   }
 
-  
+
   constructor(private nutritionService: NutritionService, private route:ActivatedRoute, private router: Router) {
     this.getProducts();
-    
+
     route.queryParams.subscribe(queryParam => {
          this.calendar.mealTypeId = queryParam['mealType'];
       }
@@ -34,11 +34,10 @@ export class NutritionComponent {
 
   public createCalendar(productId: number) {
     this.calendar.productId = productId;
-    console.log(this.route.snapshot.params);
     this.nutritionService.createCalendar(this.calendar).subscribe(x => this.router.navigateByUrl('/journal'));
   }
 
   public getProducts() {
-    this.nutritionService.getProducts().subscribe(x => this.productsList = x.items); 
+    this.nutritionService.getProducts().subscribe(x => this.productsList = x.items);
   }
 }

@@ -17,19 +17,19 @@ import { ChangeRequestDto } from '../../models/ChangeRequestDto';
 })
 export class RequestComponent {
   requestBlocks: BlockDto[] = [];
-  isArticle: boolean = false; 
-  isRecipe: boolean = false; 
-  isTraining: boolean = false; 
+  isArticle: boolean = false;
+  isRecipe: boolean = false;
+  isTraining: boolean = false;
   isEmpty: boolean = true;
   isAdmin: boolean = false;
 
 
   constructor(private requestService: RequestService, private route:ActivatedRoute, private userService: AuthService) {
-   
+
    this.route.queryParams.subscribe(queryParam => {
-      if(queryParam['id']) { 
+      if(queryParam['id']) {
         this.isEmpty = false;
-        this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true; 
+        this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true;
         this.getRequest(queryParam['id'])
       }
       else {
@@ -40,7 +40,6 @@ export class RequestComponent {
 
   getRequest(id: number) {
     this.requestService.getRequest(id).subscribe(x => {
-      console.log(x);
       if(x.article) {
         this.isArticle = true;
         this.articleDto.name = x.article.name;
@@ -48,7 +47,6 @@ export class RequestComponent {
         this.articleDto.creatorId = x.article.creatorId;
         this.articleDto.statusTypeId = x.article.statusTypeId;
         this.requestBlocks = x.article.blocks;
-        console.log(this.articleDto);
       }
 
       if(x.recipe) {
@@ -129,8 +127,8 @@ export class RequestComponent {
     recipe:  null,
     training:  null
   }
-  
-  public createRequest() {  
+
+  public createRequest() {
     if(this.isArticle) {
       this.createRequestDto.article = this.articleDto;
     }
@@ -141,9 +139,7 @@ export class RequestComponent {
     if(this.isTraining)
       this.createRequestDto.training = this.trainingDto;
 
-    console.log(this.createRequestDto);
-
-    this.requestService.createRequest(this.createRequestDto).subscribe(x => console.log(x)); 
+    this.requestService.createRequest(this.createRequestDto).subscribe(x => {});
   }
 
   status: ChangeRequestDto = {
@@ -156,7 +152,7 @@ export class RequestComponent {
     this.route.queryParams.subscribe(queryParam => {
       this.status.statusId = 6;
       this.status.id = queryParam['id'];
-      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+      this.requestService.changeStatus(this.status).subscribe(x => {});
    });
   }
 
@@ -164,7 +160,7 @@ export class RequestComponent {
     this.route.queryParams.subscribe(queryParam => {
       this.status.statusId = 4;
       this.status.id = queryParam['id'];
-      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+      this.requestService.changeStatus(this.status).subscribe(x => {});
    });
   }
 
@@ -172,7 +168,7 @@ export class RequestComponent {
     this.route.queryParams.subscribe(queryParam => {
       this.status.statusId = 3;
       this.status.id = queryParam['id'];
-      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+      this.requestService.changeStatus(this.status).subscribe(x => {});
    });
   }
 }
