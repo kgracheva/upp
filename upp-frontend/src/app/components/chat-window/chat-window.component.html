@@ -1,0 +1,97 @@
+
+
+<div>
+    <ng-container *ngIf="chat && !isLoading">
+        <div class="suggestion-block d-flex justify-content-between align-items-center">
+            <div class="suggestion-item d-flex align-items-end" >
+                <div>
+                    <p class="fw-500 mb-0">{{ getName() }}</p>
+                    <!-- <p class="date mb-0">{{}}</p> -->
+                </div>
+            </div>
+
+            <!-- <div class="d-flex">
+                <button class="button-green" (click)="accept()">Принять</button>
+                <div *ngIf="isAccepted" class="button bg-success">
+                    Принят
+                </div>
+
+                <div *ngIf="isContragentAccepted" class="button bg-success">
+                    Принят другой стороной
+                </div>
+                <div *ngIf="!isContragentAccepted" class="button bg-secondary">
+                    На рассмотрении
+                </div>
+            </div> -->
+        </div>
+
+     
+
+        <ul class="list-unstyled"
+            style="overflow-y: scroll"
+            #chatWindow
+            (resize)="scrollToBottom()">
+            <ng-container *ngFor="let message of messages">
+                <li *ngIf="currentUser.id != message.userId"
+                    class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <!-- <img [src]="'/api/file/'+getUser(message.userId).photo"
+                             alt="avatar"
+                             class="rounded-circle d-flex align-self-start mr-s5"
+                             width="40"
+                             height="40" /> -->
+                        <div class="d-flex align-items-center">
+                            <p class=" mb-0 mr-s3">
+                                {{ getUser(message.userId)!.name }}
+                            </p>
+                            <p class="time mt-s1 mb-0">
+                                <i class="far fa-clock"></i>
+                                {{ message.created | date : "HH:mm" }}
+                            </p>
+                        </div>
+                    </div>
+                    <p class="mb-s12 mt-s5 message-gray">
+                        {{ message.text }}
+                    </p>
+                </li>
+
+                <li *ngIf="currentUser.id == message.userId"
+                    class="d-flex flex-column align-items-end">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="blue-circle me-2" *ngIf="!message.isRead"></div>
+                        <div class="mb-0 message-blue">
+                            {{ message.text }}
+                        </div>
+                    </div>
+
+                    <p class="time mt-s1">
+                        <i class="far fa-clock"></i>
+                        {{ message.created | date : "HH:mm" }}
+                    </p>
+                </li>
+            </ng-container>
+        </ul>
+        <div class="mb-3 position-relative">
+            <div class="form-outline">
+                <textarea placeholder="Напишите в чат..."
+                          class="form-control"
+                          id="textAreaExample2"
+                          rows="1"
+                          [(ngModel)]="currentText"></textarea>
+            </div>
+
+            <button type="button" class="float-end btn-send" (click)="send()">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="30"
+                     height="30"
+                     viewBox="0 0 30 30"
+                     fill="none">
+                    <path fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M6.4 23.8849L23.85 16.4049C24.66 16.0549 24.66 14.9149 23.85 14.5649L6.4 7.08488C5.74 6.79488 5.01 7.28488 5.01 7.99488L5 12.6049C5 13.1049 5.37 13.5349 5.87 13.5949L20 15.4849L5.87 17.3649C5.37 17.4349 5 17.8649 5 18.3649L5.01 22.9749C5.01 23.6849 5.74 24.1749 6.4 23.8849Z"
+                          fill="#3C8EF9" />
+                </svg>
+            </button>
+        </div>
+    </ng-container>
+</div>

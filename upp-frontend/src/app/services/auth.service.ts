@@ -97,6 +97,7 @@ export class AuthService {
   // }
 
   public getToken(): string | null {
+    console.log(JSON.parse(localStorage.getItem('user')!).key);
     return JSON.parse(localStorage.getItem('user')!).key;
   }
 
@@ -104,14 +105,14 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')!).roles;
   }
 
-  public user(): User| null {
+  public user(): User {
     if (this._user) {
       return this._user;
     }
 
     this._user = JSON.parse(localStorage.getItem('user') ?? 'null');
 
-    return this._user;
+    return this._user!;
   }
 
   // public logout(returnUrl: string = '/login'): void {

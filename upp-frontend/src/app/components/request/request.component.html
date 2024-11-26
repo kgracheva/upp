@@ -59,4 +59,8 @@
     </div>
     
     <button (click)="createRequest()" *ngIf="isEmpty">Отправить на модерацию</button>
+    <textarea name="" id="" [(ngModel)]="status.comment"></textarea>
+    <button (click)="acceptRequest()" *ngIf="isAdmin">Подтвердить заявку</button>
+    <button (click)="notAllRequest()" *ngIf="isAdmin">Отправить на доработку</button>
+    <button (click)="cancelRequest()" *ngIf="isAdmin">Отклонить</button>
 </div>

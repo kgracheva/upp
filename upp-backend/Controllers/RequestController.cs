@@ -50,5 +50,13 @@ namespace upp.Controllers
             await _requestService.Delete(id, token);
             return NoContent();
         }
+
+        [HttpPut]
+        [Route("status")]
+        public async Task<ActionResult> ChangeRequestStatus(ChangeRequestDto dto, CancellationToken token)
+        {
+            await _requestService.ChangeRequestStatus(dto, token);
+            return NoContent();
+        }
     }
 }

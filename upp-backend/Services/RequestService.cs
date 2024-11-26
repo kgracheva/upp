@@ -115,7 +115,7 @@ namespace upp.Services
 
             if (type == RequestType.Training)
             {
-                return query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
+                return query.Join(_context.Trainings, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
                     Id = x.Id,
                     EntityId = c.Id,
                     Name = c.Name, 
@@ -131,7 +131,7 @@ namespace upp.Services
 
             if (type == RequestType.Recipe)
             {
-                return query.Join(_context.Articles, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
+                return query.Join(_context.Recipes, x => x.EntityId, c => c.Id, (x, c) => new RequestDto {
                     Id = x.Id,
                     EntityId = c.Id,
                     Name = c.Name, 
@@ -201,6 +201,37 @@ namespace upp.Services
 
             _context.Requests.Remove(request);
 
+            await _context.SaveChangesAsync(token);
+        }
+
+        public async Task ChangeRequestStatus(ChangeRequestDto dto, CancellationToken token) {
+            var request = await _context.Requests
+                .FirstOrDefaultAsync(g => g.Id == dto.Id, token);
+
+            if (request == null) throw new Exception("Request is null");
+
+            request.StatusTypeId = dto.StatusId;
+            request.Comment = dto.Comment;
+
+            if(request.RequestType == RequestType.Article) {
+                var article = await _context.Articles.FirstOrDefaultAsync(x => x.Id == request.EntityId);
+                article.StatusTypeId = dto.StatusId;
+                _context.Articles.Update(article);
+            }
+
+            if(request.RequestType == RequestType.Recipe) {
+                var recipe = await _context.Recipes.FirstOrDefaultAsync(x => x.Id == request.EntityId);
+                recipe.StatusTypeId = dto.StatusId;
+                _context.Recipes.Update(recipe);
+            }
+
+            if(request.RequestType == RequestType.Training) {
+                var training = await _context.Trainings.FirstOrDefaultAsync(x => x.Id == request.EntityId);
+                training.StatusTypeId = dto.StatusId;
+                _context.Trainings.Update(training);
+            }
+
+            _context.Requests.Update(request);
             await _context.SaveChangesAsync(token);
         }
     }

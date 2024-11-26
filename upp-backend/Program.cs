@@ -1,7 +1,9 @@
 using System.Reflection;
 using System.Text;
+using Application.Hubs;
 using Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +35,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options => {
+    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+    .RequireAuthenticatedUser()
+    .Build();
+});
+builder.Services.AddSignalR();
+builder.Services.AddHttpContextAccessor();
     
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ));
@@ -61,12 +69,14 @@ builder.Services.AddIdentity<User, Role>()
 //});
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CalendarService>();
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<TrainingService>();
 builder.Services.AddScoped<RecipeService>();
 builder.Services.AddScoped<RequestService>();
+builder.Services.AddScoped<ChatService>();
 
 var app = builder.Build();
 
@@ -95,6 +105,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 app.UseAuthorization();
+app.MapHub<ChatHub>("/hub");
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

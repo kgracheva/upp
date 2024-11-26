@@ -7,6 +7,8 @@ import { RecipeDto } from '../../models/RecipeDto';
 import { TrainingDto } from '../../models/TrainingDto';
 import { RequestDto } from '../../models/Request';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { ChangeRequestDto } from '../../models/ChangeRequestDto';
 
 @Component({
   selector: 'app-request',
@@ -19,10 +21,17 @@ export class RequestComponent {
   isRecipe: boolean = false; 
   isTraining: boolean = false; 
   isEmpty: boolean = true;
-  constructor(private requestService: RequestService, private route:ActivatedRoute) {
+  isAdmin: boolean = false;
+
+
+  constructor(private requestService: RequestService, private route:ActivatedRoute, private userService: AuthService) {
    
    this.route.queryParams.subscribe(queryParam => {
-      if(queryParam['id']) { this.isEmpty = false; console.log('asasa'); this.getRequest(queryParam['id'])}
+      if(queryParam['id']) { 
+        this.isEmpty = false;
+        this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true; 
+        this.getRequest(queryParam['id'])
+      }
       else {
         this.addNewBlock();
       }
@@ -135,5 +144,35 @@ export class RequestComponent {
     console.log(this.createRequestDto);
 
     this.requestService.createRequest(this.createRequestDto).subscribe(x => console.log(x)); 
+  }
+
+  status: ChangeRequestDto = {
+    id: 0,
+    statusId: -2,
+    comment: ''
+  }
+
+  public acceptRequest() {
+    this.route.queryParams.subscribe(queryParam => {
+      this.status.statusId = 6;
+      this.status.id = queryParam['id'];
+      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+   });
+  }
+
+  public cancelRequest() {
+    this.route.queryParams.subscribe(queryParam => {
+      this.status.statusId = 4;
+      this.status.id = queryParam['id'];
+      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+   });
+  }
+
+  public notAllRequest() {
+    this.route.queryParams.subscribe(queryParam => {
+      this.status.statusId = 3;
+      this.status.id = queryParam['id'];
+      this.requestService.changeStatus(this.status).subscribe(x => console.log(x));
+   });
   }
 }

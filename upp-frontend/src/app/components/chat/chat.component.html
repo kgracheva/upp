@@ -1,0 +1,51 @@
+<section>
+  <div class="d-flex chat mt-77">
+    <ul class="list-unstyled mb-0">
+      <div class="position-relative search-container">
+        <input type="search" placeholder="Поиск" class="mt-0 w-100" />
+        <div class="icon-search">
+          <i class="bi bi-search"></i>
+        </div>
+      </div>
+      <ng-container *ngFor="let chat of chats">
+        <li (click)="openChat(chat)" [ngClass]="{'active' : currentOpenChat == chat}">
+          <a class="d-flex justify-content-between">
+            <div class="d-flex flex-row">
+              <!-- <img [src]="'/api/file/'+getUser(chat).photo" alt="avatar"
+                class="rounded-circle d-flex align-items-center" width="40" height="40" /> -->
+              <div class="ml-s4 me-1">
+                <p class="mb-s1 user">{{ getUser(chat)!.name }}</p>
+                <p class="small message mb-0">
+                  {{ getText(chat.lastMessage!) }}
+                </p>
+              </div>
+            </div>
+            <div>
+              <p class="small text-muted mb-1 time">
+                <ng-container *ngIf="isMessageOld(chat.lastMessage?.created!)">
+                  {{ chat.lastMessage?.created! | date : "dd.MM.yy" }}
+                </ng-container>
+                <ng-container *ngIf="!isMessageOld(chat.lastMessage?.created!)">
+                  {{ chat.lastMessage?.created! | date : "HH:mm" }}
+
+                </ng-container>
+
+              </p>
+              <span *ngIf="chat.unreadCount > 0" class="badge float-end">{{
+                chat.unreadCount
+                }}</span>
+            </div>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+
+    <div class="no-chat" *ngIf="chats.length<1">
+      <p class="title mb-0">У вас пока нет активных переписок</p>
+    </div>
+
+
+    <app-chat-window *ngIf="currentOpenChat" class="w-100" [chat]="currentOpenChat"
+      (chatChange)="updateChat($event)"></app-chat-window>
+  </div>
+</section>

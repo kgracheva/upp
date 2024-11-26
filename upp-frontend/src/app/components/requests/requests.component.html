@@ -1,4 +1,12 @@
-<h2>Таблица ваших заявок</h2>
+<h2 *ngIf="!isAdmin">Таблица ваших заявок</h2>
+<h2 *ngIf="isAdmin">Таблица заявок</h2>
+
+<select name="goal" id="goal-sel" [(ngModel)]="findRequests.requestType" (ngModelChange)="getRequests()">
+  <option value="0">Статьи</option>
+  <option value="1">Рецепты</option>
+  <option value="2">Тренировки</option>
+</select>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> Тип заявки </th>

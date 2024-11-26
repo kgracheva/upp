@@ -11,6 +11,7 @@ import { SpecialData } from "../models/SpecialData";
 import { FindRequestsDto } from "../models/FindRequestsDto";
 import { CreateRequestDto } from "../models/CreateRequestDto";
 import { RequestDto } from "../models/Request";
+import { ChangeRequestDto } from "../models/ChangeRequestDto";
 
 @Injectable({
     providedIn: 'root',
@@ -32,6 +33,10 @@ export class RequestService {
 
     public getRequest(id: number) {
         return this.httpClient.get<CreateRequestDto>(this.refRequest + "/" + id);
+    }
+
+    public changeStatus(dto: ChangeRequestDto) {
+        return this.httpClient.put(this.refRequest + "/status", dto);
     }
   
 }

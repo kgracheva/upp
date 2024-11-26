@@ -9,7 +9,7 @@ import { JournalComponent } from './components/journal/journal.component';
 import { NutritionComponent } from './components/nutrition/nutrition.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LkComponent } from './components/lk/lk.component';
 import { FormComponent } from './components/form/form.component';
 import { RequestsComponent } from './components/requests/requests.component';
@@ -24,6 +24,9 @@ import { TrainingComponent } from './components/training/training.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { SafePipe } from 'safe-pipe';
+import { ChatComponent } from './components/chat/chat.component';
+import { JwtInterceptor } from './services/jwt.interceptor';
+import { ChatWindowComponent } from './components/chat-window/chat-window.component';
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { SafePipe } from 'safe-pipe';
     TrainingsComponent,
     TrainingComponent,
     RecipesComponent,
-    RecipeComponent
+    RecipeComponent,
+    ChatComponent,
+    ChatWindowComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,7 @@ import { SafePipe } from 'safe-pipe';
     MatTableModule,
     SafePipe
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

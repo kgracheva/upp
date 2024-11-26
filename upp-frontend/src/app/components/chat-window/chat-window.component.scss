@@ -1,0 +1,93 @@
+
+.btn-send {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+textarea {
+  border-radius: 0;
+  border: none;
+  border-top: 2px solid rgba(0, 66, 105, 0.07);
+  padding-top: 12px;
+}
+
+ul {
+  min-height: calc(100vh - 190px);
+  max-height: calc(100vh - 190px);
+  padding: 16px 20px 0;
+  margin-bottom: 0;
+}
+
+.time {
+  font-size: 12px;
+  color: #616c76;
+}
+
+.message-blue {
+  background: #e8f2fe;
+  border-radius: 16px 16px 0px 16px;
+  max-width: 500px;
+  padding: 16px;
+}
+
+.message-gray {
+  background: #eef1f4;
+  border-radius: 16px 16px 16px 0px;
+  max-width: 650px;
+  padding: 16px;
+  width: max-content;
+}
+
+// .form-control:focus {
+//   border-top: 2px solid rgba(0, 66, 105, 0.1) !important;
+// }
+
+.blue-circle {
+  background: #3c8ef9;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.suggestion-block {
+  padding: 10px 12px;
+  border-bottom: 1px solid #dddddd;
+
+  .suggestion-item {
+    img {
+      height: 40px;
+      width: auto;
+      border-radius: 3px;
+    }
+    .fw-500 {
+      font-weight: 500;
+    }
+    .date {
+      color: rgba(0, 32, 51, 0.6);
+      font-size: 13px;
+    }
+  }
+
+  .button-green {
+    background: #00a35f;
+    border-radius: 3px;
+    padding: 8px 22px;
+    //font-weight: 700;
+    color: #fff;
+    margin-right: 10px;
+    border:1px solid #00a35f;
+  }
+
+  .button-white {
+    border: 1px solid #d3d8e6;
+    border-radius: 3px;
+    padding: 8px 22px;
+    //font-weight: 700;
+    color: rgba(0, 32, 51, 0.6);
+    background-color: #fff;
+  }
+}

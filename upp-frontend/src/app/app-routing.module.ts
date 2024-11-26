@@ -14,6 +14,7 @@ import { TrainingComponent } from './components/training/training.component';
 import { TrainingsComponent } from './components/trainings/trainings.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,7 @@ const routes: Routes = [
     component: RequestsComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Client']
+      roles: ['Client', "Admin"]
     },
   },
   {
@@ -57,21 +58,21 @@ const routes: Routes = [
     component: RequestComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Client']
+      roles: ['Client', "Admin"]
     },
   },
   {
     path: "articles",
     component: ArticlesComponent,
     data: {
-      roles: ['Client']
+      roles: ['Client', "Admin"]
     },
   },
   {
     path: "article/:id",
     component: ArticleComponent,
     data: {
-      roles: ['Client']
+      roles: ['Client', "Admin"]
     },
   },
 
@@ -79,7 +80,7 @@ const routes: Routes = [
     path: "trainings",
     component: TrainingsComponent,
     data: {
-      roles: ['Client']
+      roles: ['Client', "Admin"]
     },
   },
   {
@@ -100,8 +101,17 @@ const routes: Routes = [
   {
     path: "recipe/:id",
     component: RecipeComponent,
+    canActivate: [AuthGuard],
     data: {
       roles: ['Client']
+    },
+  },
+  {
+    path: "chat",
+    component: ChatComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Client', 'Admin']
     },
   },
 ];

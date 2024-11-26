@@ -24,6 +24,9 @@ namespace Entities
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatUser> ChatUsers { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public ApplicationDbContext(
          DbContextOptions<ApplicationDbContext> options)
          : base(options)
@@ -33,6 +36,35 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ChatUser>()
+                .HasOne(x => x.Chat)
+                .WithMany(x => x.ChatUsers)
+                .HasForeignKey(x => x.ChatId);
+
+            builder.Entity<ChatUser>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+
+            builder.Entity<ChatUser>()
+                .HasKey(x => new { x.ChatId, x.UserId });
+
+            builder.Entity<Message>()
+                .HasOne(x => x.Chat)
+                .WithMany(x => x.Messages)
+                .HasForeignKey(x => x.ChatId);
+
+            builder.Entity<Message>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+            
+            builder.Entity<Message>()
+                .HasIndex(x => new { x.ChatId, x.UserId });
+
+            builder.Entity<Message>()
+                .HasIndex(x => x.ChatId);
 
             builder.Entity<Request>()
                 .HasOne(x => x.StatusType)
