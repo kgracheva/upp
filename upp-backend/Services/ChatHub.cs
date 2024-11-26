@@ -63,7 +63,7 @@ public class ChatHub: Hub
                     Console.WriteLine(c.ToString());
                 }
 
-                var jti = tokenS.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Jti).Value;
+                var jti = tokenS.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value;
                 if (jti != null && jti != "")
                 {
                     

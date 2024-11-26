@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Создание чата</h2>
+<mat-dialog-content>
+  <select class="form-select" aria-label="Default select example" [(ngModel)]="user">
+    <option selected>Выберите собеседника</option>
+    <option *ngFor="let u of users" [value]="u.id">{{u.name}}</option>
+  </select>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-stroked-button color="warn" [mat-dialog-close]>Отмена</button>
+  <button mat-stroked-button color="primary" (click)="create()"  cdkFocusInitial>Создать</button>
+</mat-dialog-actions>

@@ -27,6 +27,11 @@ import { SafePipe } from 'safe-pipe';
 import { ChatComponent } from './components/chat/chat.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { ChatWindowComponent } from './components/chat-window/chat-window.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreateChatDialogComponent } from './components/dialogs/create-chat-dialog/create-chat-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -49,19 +54,24 @@ import { ChatWindowComponent } from './components/chat-window/chat-window.compon
     RecipesComponent,
     RecipeComponent,
     ChatComponent,
-    ChatWindowComponent
+    ChatWindowComponent,
+    CreateChatDialogComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatDialogModule,
+    MatButtonModule,
     SafePipe
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true} ],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, provideAnimationsAsync() ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

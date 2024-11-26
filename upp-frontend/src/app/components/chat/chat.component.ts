@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { from } from 'rxjs';
 import { MessageDto } from '../../models/MessageDto';
 import { CreateSimpleChatDto } from '../../models/CreateSimpleChatDto';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateChatDialogComponent } from '../dialogs/create-chat-dialog/create-chat-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +21,7 @@ export class ChatComponent implements OnInit {
   public currentOpenChat: ChatDto | null = null;
   public openChatId: number | null = null;
 
-  constructor(private chatService: ChatService,  private authService: AuthService, private route: ActivatedRoute)
+  constructor(private chatService: ChatService,  private authService: AuthService, private route: ActivatedRoute, private dialog: MatDialog)
   {
   }
 
@@ -57,7 +59,7 @@ export class ChatComponent implements OnInit {
 
   public isMessageOld(date: Date) {
     var newDate = new Date(date);
-    newDate.setDate(date?.getDate() + 1);
+    newDate.setDate(newDate.getDate() + 1);
     return newDate < new Date();
   }
 
@@ -88,10 +90,23 @@ export class ChatComponent implements OnInit {
     })
   }
 
-  public createChat() {
-    let dto: CreateSimpleChatDto = {
-      userIds: [1, 7]
-    }
-    this.chatService.createChat(dto).subscribe(x => {});
+  // public createChat() {
+  //   let dto: CreateSimpleChatDto = {
+  //     userIds: [1, 7]
+  //   }
+  //   this.chatService.createChat(dto).subscribe(x => {});
+  // }
+
+  createChat(): void {
+    const dialogRef = this.dialog.open(CreateChatDialogComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.loadChats();
+      }
+    });
   }
 }
