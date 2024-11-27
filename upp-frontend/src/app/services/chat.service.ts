@@ -10,6 +10,7 @@ import { PaginatedList } from '../models/PaginatedList';
 import { ChatDto } from '../models/ChatDto';
 import { CreateSimpleChatDto } from '../models/CreateSimpleChatDto';
 import { GetMessagesDto } from '../models/GetMessagesDto';
+import { ShortUserDto } from '../models/UserShortDto';
 
 @Injectable({
   providedIn: 'root',
@@ -68,7 +69,7 @@ export class ChatService {
     });
   }
 
-  async send(chatId: number, message: MessageDto) {
+  async send(chatId: number, message: string) {
     await this.hubConnection.send('SendMessage', chatId, message);
   }
 
@@ -88,5 +89,9 @@ export class ChatService {
 
   openChat(dto: GetMessagesDto) {
     return this.httpClient.get<MessageDto[]>(this.refChat + "/open?chatId=" + dto.chatId);
+  }
+
+  getUsers() {
+    return this.httpClient.get<ShortUserDto[]>(this.refChat + "/users");
   }
 }

@@ -135,7 +135,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
     this.chat!.lastMessage = sentMessage;
 
-    await this.chatService.send(this.chat!.id, message);
+    await this.chatService.send(this.chat!.id, message.text || "");
   }
 
   scrollToBottom(): void {
