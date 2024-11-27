@@ -192,6 +192,12 @@ namespace upp.Services
             return requestDto;
         }
 
+        public async Task<RequestDto> GetRequestInfo(int id, CancellationToken token) {
+            var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == id, token);
+
+            return _mapper.Map<Request, RequestDto>(request);
+        }
+
         public async Task Delete(int id, CancellationToken token)
         {
             var request = await _context.Requests

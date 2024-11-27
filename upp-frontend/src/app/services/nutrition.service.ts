@@ -8,6 +8,7 @@ import { PaginatedList } from "../models/PaginatedList";
 import { Calories } from "../models/Calories";
 import { CaloriesByDay } from "../models/CaloriesByDay";
 import { SpecialData } from "../models/SpecialData";
+import { FindCalendarsDto } from "../models/FindCalendarsDto";
 
 @Injectable({
     providedIn: 'root',
@@ -37,5 +38,17 @@ export class NutritionService {
 
     public getSpecialInfo(userId: number) {
       return this.httpClient.get<SpecialData>(this.refCalendar + "/special-info?userId=" + userId);
+    }
+
+    public createProduct(dto: Product) {
+      return this.httpClient.post(this.refProduct, dto);
+    }
+
+    public getCalendars(dto: FindCalendarsDto) {
+      return this.httpClient.get<PaginatedList<Calendar>>(this.refCalendar + "?userId=" + dto.userId + "&mealTypeId=" + dto.mealTypeId + "&date=" + dto.date?.toISOString());
+    }
+
+    public deleteCalendar(id: number) {
+      return this.httpClient.delete(this.refCalendar + "/" + id);
     }
 }

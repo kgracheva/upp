@@ -1,0 +1,159 @@
+
+<div class="form-wrap">
+    <form action="">
+        <div class="question">
+            <h5>Что такое РПП?</h5>
+            <select (change)="selected($event, 0)" >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Реакция на пищевые продукты</option>
+                <option value="2">Результат неправильного питания</option>
+                <option value="3">Расстройство пищевого поведения</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие виды РПП вы знаете?</h5>
+            <select (change)="selected($event, 1)" >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Анорексия, булимия, компульсивное переедание.</option>
+                <option value="2">Ожирение, анорексия.</option>
+                <option value="3">Булимия, ожирение.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие факторы могут способствовать развитию РПП?</h5>
+            <select (change)="selected($event, 2)" >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Генетическая предрасположенность, психологические факторы, социальные факторы.</option>
+                <option value="2">Неправильное питание, стресс, низкая самооценка.</option>
+                <option value="3">Всё вышеперечисленное.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>ие методы диагностики РПП существуют?</h5>
+            <select (change)="selected($event, 3)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Клинический опрос, психологическое тестирование, медицинское обследование.</option>
+                <option value="2">Психологическое тестирование, наблюдение за поведением клиента.</option>
+                <option value="3">Медицинское обследование, анализ пищевых привычек.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие цели терапии РПП?</h5>
+            <select (change)="selected($event, 4)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Восстановление нормального веса, улучшение психического состояния, формирование здоровых пищевых привычек.</option>
+                <option value="2">Снижение веса, изменение пищевых привычек.</option>
+                <option value="3">Улучшение психического состояния.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие подходы к терапии РПП наиболее эффективны??</h5>
+            <select (change)="selected($event, 5)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Когнитивно-поведенческая терапия, семейная терапия, групповая терапия.</option>
+                <option value="2">Медикаментозная терапия, психоанализ.</option>
+                <option value="3"> Групповая терапия, медикаментозная терапия.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие основные принципы работы с клиентами, страдающими РПП?</h5>
+            <select (change)="selected($event, 6)" >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Индивидуальный подход, уважение к клиенту, конфиденциальность.</option>
+                <option value="2">Поддержка и понимание, помощь в преодолении страхов и тревожности.</option>
+                <option value="3">Формирование здоровых пищевых привычек, контроль за питанием.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие навыки необходимы психологу для работы с клиентами, страдающими РПП?</h5>
+            <select (change)="selected($event, 7)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1"> Умение слушать и понимать клиента, умение работать с эмоциями, знание методов терапии РПП.</option>
+                <option value="2">Знание методов диагностики РПП, умение формировать здоровые пищевые привычки.</option>
+                <option value="3">Умение работать с пищевыми привычками, знание причин РПП.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Какие сложности могут возникнуть при работе с клиентами, страдающими РПП?</h5>
+            <select (change)="selected($event, 8)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Сопротивление клиента изменениям, страх перед едой, искажённое восприятие своего тела.</option>
+                <option value="2">Искажённое восприятие своего тела, сопротивление клиента изменениям.</option>
+                <option value="3">Страх перед едой.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>акие меры предосторожности должен соблюдать психолог при работе с клиентами, страдающими РПП?</h5>
+            <select (change)="selected($event, 9)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Избегать навязывания своего мнения, поддерживать клиента в процессе терапии, уважать его границы.</option>
+                <option value="2">Контролировать питание клиента, следить за его весом.</option>
+                <option value="3">Навязывать своё мнение, контролировать питание клиента.</option>
+            </select>
+        </div>
+
+
+
+        <div class="question">
+            <h5>Какие ресурсы можно использовать для повышения квалификации в области работы с РПП?</h5>
+            <select (change)="selected($event, 10)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Курсы повышения квалификации, семинары, вебинары, книги и статьи по теме.</option>
+                <option value="2">Семинары, вебинары.я</option>
+                <option value="3"> Книги и статьи по теме.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Как оценить эффективность терапии РПП?</h5>
+            <select (change)="selected($event, 11)"  >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">По изменению веса клиента, по улучшению его психического состояния, по формированию здоровых пищевых привычек.</option>
+                <option value="2">По снижению веса, по изменению пищевых привычек.</option>
+                <option value="3">По улучшению психического состояния.</option>
+            </select>
+        </div>
+        <div class="question">
+            <h5>Как поддерживать клиентов после завершения терапии РПП?</h5>
+            <select  (change)="selected($event, 12)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Предоставлять им возможность обращаться за помощью при возникновении проблем, поддерживать их в формировании здоровых пищевых привычек./option>
+                <option value="2">Следить за их питанием.</option>
+                <option value="3">Предоставлять возможность обращаться за помощью.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Как предотвратить развитие РПП у клиентов?
+            </h5>
+            <select (change)="selected($event, 13)" >
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Проводить профилактические беседы о важности здорового питания и образа жизни.</option>
+                <option value="2">Формировать здоровые пищевые привычки, помогать клиентам справляться со стрессом.</option>
+                <option value="3">Следить за питанием клиентов.</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h5>Как помочь клиентам, которые не хотят признавать наличие РПП?</h5>
+            <select (change)="selected($event, 14)">
+                <option value="0">-- Выбрать --</option>
+                <option value="1">Выслушать их, понять их точку зрения, предложить помощь и поддержку.</option>
+                <option value="2">Убедить их в необходимости терапии.</option>
+                <option value="3">Заставить их обратиться за помощью.</option>
+            </select>
+        </div>
+
+        <button (click)="accept()">Проверить</button>
+    </form>
+    
+</div>

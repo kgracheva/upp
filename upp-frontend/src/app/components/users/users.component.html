@@ -1,0 +1,139 @@
+<div class="filters-wrap">
+    <h2 class="block-heading">
+      Фильтры поиска гостей
+      <!-- <button mat-stroked-button class="action-clear" (click)="clearFilters()">Очистить фильтры</button> -->
+    </h2>
+    <div class="filters">
+      <!-- <mat-form-field appearance="outline" *ngIf="canManage">
+        <mat-label>Поиск гостей по дате</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="searchModel.date" (ngModelChange)="filterChange()">
+        <mat-hint>ДД.ММ.ГГГГ</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field class="field-long" appearance="outline">
+        <mat-label>Поиск гостей по ФИО</mat-label>
+        <input matInput placeholder="ФИО" [(ngModel)]="searchModel.fio" (ngModelChange)="filterChange()">
+      </mat-form-field> -->
+  <!--
+      <mat-form-field class="field-long" appearance="outline">
+        <mat-label>Поиск гостей по номеру машины</mat-label>
+        <input matInput placeholder="Номер машины" [(ngModel)]="searchModel.carNumber" (ngModelChange)="filterChange()">
+      </mat-form-field> -->
+  
+      <!-- <mat-form-field class="field-long" appearance="outline">
+        <mat-label>Поиск по инициатору </mat-label>
+        <input matInput placeholder="Инициатор" [(ngModel)]="searchModel.target" (ngModelChange)="filterChange()">
+      </mat-form-field>
+   -->
+      <!-- <button [ngClass]="{
+        'to-deleted': !isDeleted,
+        'to-actual': isDeleted}" *ngIf="canManage" (click)="changeShowDeleted()">
+  
+        <svg *ngIf="!isDeleted" width="24" height="24" viewBox="0 0 24 24" version="1.1" xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  
+          <style type="text/css">
+            .st0 {
+              opacity: 0.2;
+              fill: none;
+              stroke: #fff;
+              stroke-width: 5.000000e-02;
+              stroke-miterlimit: 10;
+            }
+          </style>
+  
+          <g id="grid_system" />
+  
+          <g id="_icons">
+  
+            <path
+              d="M8.3,15.7C8.5,15.9,8.7,16,9,16s0.5-0.1,0.7-0.3l2.3-2.3l2.3,2.3c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3   c0.4-0.4,0.4-1,0-1.4L13.4,12l2.3-2.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0L12,10.6L9.7,8.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4   l2.3,2.3l-2.3,2.3C7.9,14.7,7.9,15.3,8.3,15.7z" />
+  
+            <path
+              d="M12,21c5,0,9-4,9-9s-4-9-9-9s-9,4-9,9S7,21,12,21z M12,5c3.9,0,7,3.1,7,7s-3.1,7-7,7s-7-3.1-7-7S8.1,5,12,5z" />
+  
+          </g>
+  
+        </svg>
+  
+        <svg *ngIf="isDeleted" width="18" height="18" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+          fill="none">
+  
+          <g>
+  
+            <path
+              d="M11.78 5.22a.75.75 0 010 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-2-2a.75.75 0 011.06-1.06l1.47 1.47 3.97-3.97a.75.75 0 011.06 0z" />
+  
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1116 0A8 8 0 010 8zm8-6.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+              clip-rule="evenodd" />
+  
+          </g>
+  
+        </svg>
+  
+        <span *ngIf="!isDeleted">
+          Показать удаленные пропуски
+        </span>
+        <span *ngIf="isDeleted">Показать актуальные пропуски</span>
+      </button> -->
+    </div>
+  </div>
+  
+  <!-- <div class="passes-actions">
+    <div class="actions-passes">
+      <button class="action-btn action-add" (click)="openCreatingModal()" *ngIf="canManage && !isDeleted">Добавить
+        гостя/визитера</button>
+      <button class="action-btn action-add" (click)="openImportingModal()"
+        *ngIf="canManage && !isDeleted">Импорт</button>
+      <button class="action-btn action-add" (click)="export()" *ngIf="canManage && passes.length">Экспорт</button>
+    </div>
+  </div> -->
+  
+  <div class="passes-table-wrap">
+    <h2 class="block-heading">Таблица психологов</h2>
+    <!-- <p>Для просмотра пропуска и возможных действий, нажмите на нужную строчку в таблице!</p> -->
+    <div class="table-wrap" *ngIf="users.length">
+      <table matTableResponsive mat-table [dataSource]="users" class="mat-elevation-z8" *ngIf="users.length">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> id </th>
+          <td mat-cell *matCellDef="let pass" class="bold-field"> {{ pass.id }} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> ФИО </th>
+          <td mat-cell *matCellDef="let pass" class="bold-field"> {{ pass.name }} </td>
+        </ng-container>
+  
+        <!-- <ng-container matColumnDef="carNumber">
+          <th mat-header-cell *matHeaderCellDef> Номер машины </th>
+          <td mat-cell *matCellDef="let pass"> {{formatCarNumber(pass.carNumber)}} </td>
+        </ng-container> -->
+  
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Дата </th>
+          <td mat-cell *matCellDef="let pass"> {{pass.created|date:'dd.MM.yyyy'}}</td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Действия</th>
+          <td mat-cell *matCellDef="let pass">
+           <button (click)="changeStatus(pass.id)">Изменить статус</button>
+          </td>
+        </ng-container>
+  
+        <span></span>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </div>
+    <!-- <mat-paginator *ngIf="passes.length" [length]="totalCount" [pageSize]="searchModel.size"
+      [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="getServerData($event)">
+    </mat-paginator> -->
+<!--   
+    <span *ngIf="!passes.length">В таблице нет данных <span *ngIf="searchModel.date">на эту дату</span></span> -->
+  </div>
+<!--   
+  <app-custom-paginator *ngIf="passes.length" [totalCount]="totalCount" [size]="defaultSize" (onOptionsChanged)="getServerData($event)"></app-custom-paginator>
+   -->

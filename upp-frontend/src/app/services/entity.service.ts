@@ -45,4 +45,15 @@ export class EntityService {
   public getRecipe(id: any) {
     return this.httpClient.get<RecipeDto>(this.refRecipe + "/" + id);
   }
+
+  public editArticle(dto: ArticleDto) {
+    return this.httpClient.put(this.refArticle, dto);
+  }
+  public editRecipe(dto: RecipeDto) {
+    return this.httpClient.put(this.refRecipe, dto);
+  }
+
+  public editTraining(dto: TrainingDto) {
+    return this.httpClient.put(this.refTraining, dto);
+  }
 }

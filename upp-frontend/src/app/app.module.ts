@@ -27,6 +27,8 @@ import { SafePipe } from 'safe-pipe';
 import { ChatComponent } from './components/chat/chat.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { ChatWindowComponent } from './components/chat-window/chat-window.component';
+import { UsersComponent } from './components/users/users.component';
+import { PsyFormComponent } from './components/psy-form/psy-form.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { ChatWindowComponent } from './components/chat-window/chat-window.compon
     RecipesComponent,
     RecipeComponent,
     ChatComponent,
-    ChatWindowComponent
+    ChatWindowComponent,
+    UsersComponent,
+    PsyFormComponent
   ],
   imports: [
     BrowserModule,

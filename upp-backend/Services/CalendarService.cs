@@ -74,7 +74,7 @@ namespace upp.Services
 
         public async Task<PaginatedList<CalendarDto>> GetCalendars(FindCalendarsDto dto, CancellationToken token)
         {
-            IQueryable<Calendar> query = _context.Calendars;
+            IQueryable<Calendar> query = _context.Calendars.Include(x => x.Product);
 
             if (dto.UserId != 0)
             {
@@ -84,6 +84,10 @@ namespace upp.Services
             if(dto.Date != null)
             {
                 query = query.Where(x => dto.Date.Value.Date == x.Created.Value.Date);
+            }
+
+            if(dto.MealTypeId != 0) {
+                query = query.Where(x => x.MealTypeId == dto.MealTypeId);
             }
 
             return await query.ToPaginateListAsync<Entities.Calendar, CalendarDto>(_mapper, dto.Page, dto.Size, token);

@@ -15,6 +15,8 @@ import { TrainingsComponent } from './components/trainings/trainings.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { UsersComponent } from './components/users/users.component';
+import { PsyFormComponent } from './components/psy-form/psy-form.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,7 @@ const routes: Routes = [
     component: LkComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Client']
+      roles: ['Client', 'Admin']
     },
   },
   {
@@ -50,7 +52,7 @@ const routes: Routes = [
     component: RequestsComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Client', "Admin"]
+      roles: ['Client', "Admin", 'Psychologist']
     },
   },
   {
@@ -58,7 +60,7 @@ const routes: Routes = [
     component: RequestComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Client', "Admin"]
+      roles: ['Client', "Admin", 'Psychologist']
     },
   },
   {
@@ -112,6 +114,22 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['Client', 'Admin']
+    },
+  },
+  {
+    path: "users",
+    component: UsersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Admin']
+    },
+  },
+  {
+    path: "psy",
+    component: PsyFormComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Psychologist']
     },
   },
 ];

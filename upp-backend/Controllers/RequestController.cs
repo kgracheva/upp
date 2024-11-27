@@ -58,5 +58,12 @@ namespace upp.Controllers
             await _requestService.ChangeRequestStatus(dto, token);
             return NoContent();
         }
+
+        [HttpGet]
+        [Route("info/{id}")]
+        public async Task<ActionResult<RequestDto>> GetRequestInfo(int id, CancellationToken token)
+        {
+            return Ok(await _requestService.GetRequestInfo(id, token));
+        }
     }
 }

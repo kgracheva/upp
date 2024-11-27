@@ -67,12 +67,16 @@ namespace upp.Services
             if (dto.Id == 0)
                 throw new Exception("article Id is null!");
 
-            var article = _context.Articles.FirstOrDefault(x => x.Id == dto.Id);
+            var article = _context.Articles
+        
+                .FirstOrDefault(x => x.Id == dto.Id);
 
             if (article == null)
                 throw new Exception("article Id is null!");
 
-            article = _mapper.Map(dto, article);
+            var article1 = _mapper.Map<ArticleDto, Article>(dto);
+
+            article = _mapper.Map(article1, article);
 
             _context.Articles.Update(article);
 

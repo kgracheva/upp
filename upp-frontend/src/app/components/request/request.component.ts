@@ -9,6 +9,7 @@ import { RequestDto } from '../../models/Request';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ChangeRequestDto } from '../../models/ChangeRequestDto';
+import { EntityService } from '../../services/entity.service';
 
 @Component({
   selector: 'app-request',
@@ -22,20 +23,44 @@ export class RequestComponent {
   isTraining: boolean = false;
   isEmpty: boolean = true;
   isAdmin: boolean = false;
+  request: RequestDto | null = null;
+
+  isPsy: boolean = false;
+
+  isDisableAll: boolean = false;
 
 
-  constructor(private requestService: RequestService, private route:ActivatedRoute, private userService: AuthService) {
+  constructor(private requestService: RequestService, private route:ActivatedRoute, private userService: AuthService,
+    private entityService: EntityService
+  ) {
 
    this.route.queryParams.subscribe(queryParam => {
+    this.isPsy = this.userService.getRoles().lastIndexOf("Psychologist") == -1 ? false : true;
       if(queryParam['id']) {
         this.isEmpty = false;
         this.isAdmin = this.userService.getRoles().lastIndexOf("Admin") == -1 ? false : true;
-        this.getRequest(queryParam['id'])
+
+        
+        
+        this.getRequest(queryParam['id']);
+        this.getRequestInfo(queryParam['id']);
       }
       else {
+        if(this.isPsy) {
+          this.isArticle = true;
+        }
         this.addNewBlock();
       }
    });
+  }
+
+  getRequestInfo(id: number) {
+    this.requestService.getRequestInfo(id).subscribe(x => this.request = x);
+  }
+
+  getStatus() {
+    if(this.request!.statusTypeId <= 4)
+      this.isDisableAll = true;
   }
 
   getRequest(id: number) {
@@ -47,6 +72,7 @@ export class RequestComponent {
         this.articleDto.creatorId = x.article.creatorId;
         this.articleDto.statusTypeId = x.article.statusTypeId;
         this.requestBlocks = x.article.blocks;
+        console.log(this.requestBlocks);
       }
 
       if(x.recipe) {
@@ -66,6 +92,8 @@ export class RequestComponent {
         this.isTraining = true;
         this.trainingDto = x.training;
       }
+
+      
     });
   }
 
@@ -129,6 +157,27 @@ export class RequestComponent {
   }
 
   public createRequest() {
+    if(this.request) {
+      if(this.isArticle) {
+        console.log(this.articleDto);
+        this.entityService.editArticle(this.articleDto).subscribe(x => this.getRequest(this.request!.id));
+      }
+
+      if(this.isRecipe) {
+        this.entityService.editRecipe(this.recipeDto).subscribe(x => this.getRequest(this.request!.id));
+      }
+
+      if(this.isTraining) {
+        this.entityService.editTraining(this.trainingDto).subscribe(x => this.getRequest(this.request!.id));
+      }
+
+      this.status.statusId = 2;
+      this.status.id = this.request!.id;
+
+      this.requestService.changeStatus(this.status).subscribe(x => this.getRequestInfo(this.request!.id));
+      return;
+    }
+
     if(this.isArticle) {
       this.createRequestDto.article = this.articleDto;
     }

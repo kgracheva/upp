@@ -9,12 +9,13 @@ namespace Entities
         public string Name { get; set; } = "";
         public string Lastname { get; set; } = "";
         public int? CaloriesCountByDay { get; set; }
-        public int? Weight { get; set; } //каждый раз - текущий вес пользователя!!
+        public int? Weight { get; set; } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!
         public WorkType? WorkType { get; set; }
         public int? DesiredWeight { get; set; }
         public int? Height { get; set; }
         public string Sex { get; set; } = "";
         public DateTime BirthDay { get; set; }
+        public bool IsAvailableToWork { get; set; }
     }
 
     public enum WorkType

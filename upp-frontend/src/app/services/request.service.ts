@@ -38,5 +38,9 @@ export class RequestService {
     public changeStatus(dto: ChangeRequestDto) {
         return this.httpClient.put(this.refRequest + "/status", dto);
     }
+
+    public getRequestInfo(id: number) {
+        return this.httpClient.get<RequestDto>(this.refRequest + "/info/" +id);
+    }
   
 }

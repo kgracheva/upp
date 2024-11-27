@@ -24,9 +24,16 @@ namespace upp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AuthUserDto>> CreateAdmin([FromBody] AddUserDto dto, CancellationToken token)
+        public async Task<ActionResult<AuthUserDto>> CreateClient([FromBody] AddUserDto dto, CancellationToken token)
         {
             return Ok(await _authService.CreateClient(dto));
+        }
+
+        [HttpPost]
+        [Route("psy")]
+        public async Task<ActionResult<AuthUserDto>> CreatePsy([FromBody] AddUserDto dto, CancellationToken token)
+        {
+            return Ok(await _authService.CreatePsychologist(dto));
         }
 
         //[HttpPost]

@@ -26,6 +26,10 @@ export class AuthService {
     return this.httpClient.post(this.ref, model);
   }
 
+  public registerPsy(model: User) {
+    return this.httpClient.post(this.ref + "/psy", model);
+  }
+
   public login(model: UserLoginDto, returnUrl: string = '/') {
     return this.httpClient.post(this.ref + "/login", model);
   }

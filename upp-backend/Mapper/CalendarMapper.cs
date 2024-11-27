@@ -9,7 +9,8 @@ namespace upp.Mapper
     {
         public CalendarMapper()
         {
-            CreateMap<Calendar, CalendarDto>();
+            CreateMap<Calendar, CalendarDto>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(x => x.Product.Name));
             CreateMap<CalendarDto, Calendar>()
                 .ForMember(dest => dest.Created, opt => opt.Ignore());
         }

@@ -43,7 +43,7 @@ namespace upp.Controllers
             return Ok(await _calendarService.EditCalendar(dto, token));
         }
 
-        [HttpPatch]
+        [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult> DeleteCalendar(int id, CancellationToken token)
         {

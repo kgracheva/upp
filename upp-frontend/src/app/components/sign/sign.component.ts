@@ -24,13 +24,24 @@ export class SignComponent {
     password: ''
   }
 
+  isPsy: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   public signUp() { 
-    this.authService.register(this.userModel).subscribe(x => {
-      localStorage.setItem('user', JSON.stringify(x));
-      this.router.navigateByUrl('/form');
-    });
+    if(!this.isPsy) {
+      this.authService.register(this.userModel).subscribe(x => {
+        localStorage.setItem('user', JSON.stringify(x));
+        this.router.navigateByUrl('/form');
+      });
+    }
+    else {
+      this.authService.registerPsy(this.userModel).subscribe(x => {
+        localStorage.setItem('user', JSON.stringify(x));
+        this.router.navigateByUrl('/requests');
+      });
+    }
+   
   }
 
   public login() {

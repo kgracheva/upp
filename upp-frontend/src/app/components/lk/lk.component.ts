@@ -23,9 +23,13 @@ export class LkComponent {
   }
 
   public isLoading: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private nutritionService: NutritionService) {
-    this.getSpecialData();
+    this.isAdmin = JSON.parse(localStorage.getItem('user')!).roles[0] == "Admin";
+    if(!this.isAdmin) {
+      this.getSpecialData();
+    }
   }
   
   getSpecialData() {

@@ -5,11 +5,12 @@
             <li>Настройки</li>
             <li>Безопасность</li>
             <li>Тех поддержка</li>
+            <li>Пользователи</li>
             <li><a href="/requests">Заявки</a></li>
         </ul>
     </div>
     <div class="info-wrap">
-        <form *ngIf="!isLoading">
+        <form *ngIf="!isLoading && !isAdmin">
             <div class="item">
                 <label>Имя:</label>
                 <input type="text"  name="lastname" placeholder="Фамилия"  disabled [(ngModel)]="specialData.lastname" />

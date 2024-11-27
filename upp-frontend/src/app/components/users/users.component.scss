@@ -1,0 +1,326 @@
+// .filters {
+//   display: flex;
+//   padding: 12px;
+
+//   gap: 15px;
+
+//   flex-wrap: wrap;
+
+//   mat-form-field {
+//     min-width: 200px;
+//     max-width: 100%;
+//     width: 100%;
+//     margin-right: 8px;
+//   }
+// }
+
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  // ================ FILTERS ================
+  
+  .filters-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .filters-wrap .block-heading, .passes-table-wrap .block-heading {
+    margin: 0;
+    padding: 0;
+    color: #0a0f24;
+    text-align: left;
+    line-height: 27px;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .field-long {
+    width: 400px;
+  }
+  
+  
+  .filters button {
+    border-radius: 7px;
+  
+    font-weight: 500;
+    margin: 0.25em 0;
+    margin-bottom: 1.59375em;
+  
+    display: flex;
+    align-items: center;
+  
+  
+    span {
+      font-size: 14px;
+      text-align: left;
+    }
+  }
+  
+  .filters button:hover {
+    cursor: pointer;
+  }
+  
+  .to-deleted {
+    border: 1px solid rgb(63, 81, 181);
+    background-color: rgb(63, 81, 181);
+    color: #ffffff;
+    gap: 2px;
+  
+    svg {
+      fill: #fff;
+    }
+  }
+  
+  .to-deleted:hover {
+    background-color: rgb(81, 101, 219);
+  }
+  
+  .to-actual {
+    border: 1px solid #51c564;
+    background-color: #51c564;
+    color: #ffffff;
+    gap: 7px;
+  
+    svg {
+      fill: #fff;
+    }
+  }
+  
+  .to-actual:hover {
+    background-color: #53d468;
+  }
+  
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(63,81, 181, 1);
+  }
+  
+  ::ng-deep .mat-button-wrapper svg {
+      fill: rgba(63,81, 181, 1);
+  }
+  
+  @media(max-width: 1120px) {
+    .filters {
+      gap: 18px;
+    }
+  
+    .filters button {
+      padding: 12px 6px;
+    }
+  }
+  
+  @media(max-width: 835px) {
+    .filters {
+      flex-wrap: unset;
+      flex-direction: column;
+    }
+  }
+  
+  @media(max-width: 768px) {
+    .filters {
+      width: 100%;
+    }
+  
+    mat-form-field, .field-long {
+      width: 100%;
+    }
+  }
+  
+  
+  
+  
+  // ================ PASSES TABLE ================
+  
+  
+  .passes-table-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: start;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    flex-grow: 1;
+    margin-bottom: 30px;
+  }
+  
+  
+  .table-wrap {
+    height: 52%;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    flex-grow: 1;
+  }
+  
+  table {
+    width: 100%;
+    box-shadow: none;
+    // border: 1px solid rgb(224 224 224);\
+    border: none;
+  }
+  
+  .table-header {
+    height: 36px;
+  
+    th {
+      text-align: center;
+      vertical-align: middle;
+      font-size: 15px;
+      color: #1a1a1a;
+      padding: 0px;
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  
+    th:last-child {
+      border-right: none;
+    }
+  }
+  
+  .bold-field {
+    font-weight: bold;
+  }
+  // .table-row:last-child td {
+  //   border-bottom: none;
+  // }
+  
+  
+  .table-row {
+    td {
+      text-align: left;
+      vertical-align: middle;
+      padding: 0;
+      padding-left: 24px;
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  
+    td:last-child {
+      border-right: none;
+    }
+  }
+  
+  @media(max-width: 600px) {
+    table, tr, td {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+  
+  
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .action-btn {
+    border-radius: 7px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+    padding: 10px 15px;
+    // color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  
+  .action-enter {
+    background-color: rgb(10, 146, 10);
+    color: #fff;
+  }
+  
+  .action-enter:hover {
+    background-color: transparent;
+    color: green;
+  }
+  
+  .actions .action-leave {
+    background-color: rgb(189, 101, 0);
+    color: #fff;
+  }
+  
+  .actions .action-leave:hover {
+    background-color: transparent;
+    color: rgb(201, 113, 13);
+  }
+  
+  .actions .action-delete {
+    background-color: rgb(209, 60, 14);
+    color: #fff;
+  }
+  
+  .actions  .action-delete:hover {
+    background-color: transparent;
+    color: rgb(209, 60, 14);
+  }
+  
+  
+  
+  .passes-actions {
+    // width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-bottom: 25px;
+    padding-left: 15px;
+  }
+  
+  .action-add {
+    background-color: rgb(63, 81, 181);
+    color: #fff;
+  }
+  
+  .action-add:hover {
+    background-color: transparent;
+    color: rgb(63, 81, 181);
+  }
+  
+  .action-import {
+    background-color: rgb(240, 42, 164);
+    color: #fff;
+  }
+  
+  .action-import:hover {
+    background-color: transparent;
+    color: rgb(199, 50, 142);
+  }
+  
+  .action-export {
+    background-color: rgb(241, 88, 28);
+    color: #fff;
+  }
+  
+  .action-export:hover {
+    background-color: transparent;
+    color: rgb(241, 88, 28);
+  }
+  
+  
+  
+  .actions-passes {
+    display: flex;
+    gap: 15px;
+    // margin-bottom: 25px;
+  }
+  
+  app-custom-paginator {
+    align-self: end;
+    display: flex;
+  }
+  
+  .action-clear {
+    margin-left: 15px;
+  }
+  

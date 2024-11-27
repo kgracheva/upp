@@ -77,6 +77,7 @@ builder.Services.AddScoped<TrainingService>();
 builder.Services.AddScoped<RecipeService>();
 builder.Services.AddScoped<RequestService>();
 builder.Services.AddScoped<ChatService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 

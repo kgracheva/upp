@@ -130,24 +130,24 @@ namespace Services
             return authClaims;
         }
 
-        //public async Task<int> CreatePsychologist(AddUserDto dto)
-        //{
-        //    var psy = await _userManager.FindByNameAsync(dto.Email);
+        public async Task<AuthUserDto> CreatePsychologist(AddUserDto dto)
+        {
+           var psy = await _userManager.FindByNameAsync(dto.Email);
 
-        //    if (psy != null)
-        //    {
-        //        throw new Exception("User already exists!");
-        //    }
+           if (psy != null)
+           {
+               throw new Exception("User already exists!");
+           }
 
-        //    try
-        //    {
-        //        return await CreateUser(dto, Roles.Psychologist);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
+           try
+           {
+               return await CreateUser(dto, Roles.Psychologist);
+           }
+           catch (Exception ex)
+           {
+               throw new Exception(ex.Message);
+           }
+        }
 
         public async Task<AuthUserDto> CreateClient(AddUserDto dto)
         {
